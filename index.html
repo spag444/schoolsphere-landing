@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SchoolSphere — The Smart Family Calendar for Busy Parents</title>
+  <meta name="description" content="SchoolSphere turns school emails, newsletters and letters into organised calendar events — automatically. Never miss a trip, forget PE kit, or miss a party again." />
+  <meta property="og:title" content="SchoolSphere — The Smart Family Calendar" />
+  <meta property="og:description" content="AI-powered school calendar for busy parents. Smart Add, email sync, weekly briefing and more." />
+  <meta property="og:image" content="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/hero-illustration-cBSjCRqXDtbUqPAD78v7kF.png" />
+  <meta property="og:url" content="https://www.schoolsphere.co.uk" />
+  <link rel="icon" href="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/logo_fcc2a7bd.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy: #0a2540;
+      --navy-mid: #0d3060;
+      --gold: #c9a84c;
+      --gold-light: #f0d080;
+      --white: #ffffff;
+      --off-white: #f7f9fc;
+      --text: #1a2e44;
+      --text-muted: #5a7184;
+      --border: #e2eaf2;
+      --green: #16a34a;
+      --radius: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(10,37,64,0.97);
+      backdrop-filter: blur(12px);
+      padding: 0 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+    .nav-logo span { font-size: 1.15rem; font-weight: 800; color: var(--white); letter-spacing: -0.3px; }
+    .nav-links { display: flex; align-items: center; gap: 28px; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta {
+      background: var(--gold); color: var(--navy); font-weight: 700;
+      padding: 9px 20px; border-radius: 50px; text-decoration: none;
+      font-size: 0.875rem; transition: background 0.2s, transform 0.1s;
+    }
+    .nav-cta:hover { background: var(--gold-light); transform: translateY(-1px); }
+    .nav-mobile-toggle { display: none; background: none; border: none; cursor: pointer; color: white; }
+
+    /* ── HERO ─────────────────────────────────────────────── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 60%, #0f4080 100%);
+      padding: 80px 5% 60px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+      min-height: 88vh;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.35);
+      color: var(--gold-light); padding: 6px 14px; border-radius: 50px;
+      font-size: 0.8rem; font-weight: 600; margin-bottom: 24px;
+    }
+    .hero-badge span { width: 6px; height: 6px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.4rem); font-weight: 900;
+      color: var(--white); line-height: 1.15; letter-spacing: -1px;
+      margin-bottom: 20px;
+    }
+    .hero h1 em { color: var(--gold-light); font-style: normal; }
+    .hero-sub {
+      font-size: 1.1rem; color: rgba(255,255,255,0.75); max-width: 480px;
+      margin-bottom: 36px; line-height: 1.7;
+    }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 40px; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: var(--navy); font-weight: 700;
+      padding: 14px 28px; border-radius: 50px; text-decoration: none;
+      font-size: 1rem; transition: all 0.2s; box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,168,76,0.5); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.1); color: var(--white); font-weight: 600;
+      padding: 14px 28px; border-radius: 50px; text-decoration: none;
+      font-size: 1rem; border: 1px solid rgba(255,255,255,0.2); transition: all 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+    .hero-stats { display: flex; gap: 32px; flex-wrap: wrap; }
+    .stat { text-align: left; }
+    .stat-num { font-size: 1.6rem; font-weight: 900; color: var(--gold-light); }
+    .stat-label { font-size: 0.78rem; color: rgba(255,255,255,0.55); font-weight: 500; }
+    .hero-image { display: flex; justify-content: center; align-items: center; }
+    .hero-image img { width: 100%; max-width: 520px; border-radius: 24px; box-shadow: 0 24px 80px rgba(0,0,0,0.5); }
+
+    /* ── TRUST BAR ─────────────────────────────────────────── */
+    .trust-bar {
+      background: var(--off-white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: center; gap: 40px; flex-wrap: wrap;
+    }
+    .trust-item { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.85rem; font-weight: 500; }
+    .trust-icon { font-size: 1.1rem; }
+
+    /* ── SECTIONS ─────────────────────────────────────────── */
+    section { padding: 80px 5%; }
+    .section-label {
+      display: inline-block; background: rgba(201,168,76,0.12); color: #8a6a1a;
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+      padding: 5px 14px; border-radius: 50px; margin-bottom: 16px;
+    }
+    .section-title { font-size: clamp(1.7rem, 3vw, 2.5rem); font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 16px; letter-spacing: -0.5px; }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 580px; line-height: 1.7; }
+    .section-header { text-align: center; margin-bottom: 56px; }
+    .section-header .section-sub { margin: 0 auto; }
+
+    /* ── FEATURES GRID ─────────────────────────────────────── */
+    .features-bg { background: var(--off-white); }
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .feature-card {
+      background: var(--white); border-radius: var(--radius); padding: 32px 28px;
+      border: 1px solid var(--border); transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { box-shadow: 0 12px 40px rgba(10,37,64,0.1); transform: translateY(-4px); }
+    .feature-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 20px;
+    }
+    .feature-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .feature-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── HOW IT WORKS ─────────────────────────────────────── */
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; position: relative; }
+    .steps::before {
+      content: ''; position: absolute; top: 32px; left: 10%; right: 10%; height: 2px;
+      background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+      z-index: 0;
+    }
+    .step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), var(--navy-mid));
+      border: 3px solid var(--gold); color: var(--gold-light);
+      font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 16px; box-shadow: 0 4px 16px rgba(10,37,64,0.2);
+    }
+    .step h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .step p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── PRIVACY ─────────────────────────────────────────── */
+    .privacy-section { background: var(--navy); }
+    .privacy-section .section-label { background: rgba(201,168,76,0.2); color: var(--gold-light); }
+    .privacy-section .section-title { color: var(--white); }
+    .privacy-section .section-sub { color: rgba(255,255,255,0.65); }
+    .privacy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .privacy-promises { display: flex; flex-direction: column; gap: 20px; margin-top: 32px; }
+    .promise {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px; padding: 20px;
+    }
+    .promise-icon { font-size: 1.5rem; flex-shrink: 0; margin-top: 2px; }
+    .promise h4 { font-size: 0.95rem; font-weight: 700; color: var(--gold-light); margin-bottom: 4px; }
+    .promise p { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; }
+    .privacy-img img { width: 100%; border-radius: 20px; }
+
+    /* ── DOWNLOAD ─────────────────────────────────────────── */
+    .download-section { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); text-align: center; }
+    .download-section .section-title { color: var(--white); }
+    .download-section .section-sub { color: rgba(255,255,255,0.65); }
+    .store-buttons { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 40px; }
+    .store-btn {
+      display: inline-flex; align-items: center; gap: 12px;
+      background: var(--white); color: var(--navy); border-radius: 14px;
+      padding: 14px 24px; text-decoration: none; font-weight: 700;
+      transition: all 0.2s; box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      min-width: 200px;
+    }
+    .store-btn:hover { transform: translateY(-3px); box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .store-btn svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .store-btn-text { text-align: left; }
+    .store-btn-text small { display: block; font-size: 0.7rem; font-weight: 500; color: var(--text-muted); }
+    .store-btn-text span { font-size: 1rem; font-weight: 800; }
+    .beta-note {
+      margin-top: 24px; display: inline-block;
+      background: rgba(201,168,76,0.15); border: 1px solid rgba(201,168,76,0.3);
+      color: var(--gold-light); padding: 10px 20px; border-radius: 50px;
+      font-size: 0.85rem; font-weight: 600;
+    }
+
+    /* ── FAQ ─────────────────────────────────────────────── */
+    .faq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 900px; margin: 0 auto; }
+    .faq-item {
+      background: var(--white); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; transition: box-shadow 0.2s;
+    }
+    .faq-item:hover { box-shadow: 0 8px 24px rgba(10,37,64,0.08); }
+    .faq-item h4 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+    .faq-item p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── CONTACT ─────────────────────────────────────────── */
+    .contact-section { background: var(--off-white); text-align: center; }
+    .contact-card {
+      max-width: 560px; margin: 0 auto;
+      background: var(--white); border: 1px solid var(--border); border-radius: 24px;
+      padding: 48px 40px; box-shadow: 0 8px 40px rgba(10,37,64,0.08);
+    }
+    .contact-card h3 { font-size: 1.4rem; font-weight: 800; color: var(--navy); margin-bottom: 12px; }
+    .contact-card p { color: var(--text-muted); margin-bottom: 28px; }
+    .contact-links { display: flex; flex-direction: column; gap: 12px; }
+    .contact-link {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--off-white); border: 1px solid var(--border); border-radius: 12px;
+      padding: 14px 20px; text-decoration: none; color: var(--text);
+      font-weight: 600; font-size: 0.9rem; transition: all 0.2s;
+    }
+    .contact-link:hover { background: var(--navy); color: var(--white); border-color: var(--navy); }
+    .contact-link span { font-size: 1.2rem; }
+
+    /* ── FOOTER ─────────────────────────────────────────── */
+    footer {
+      background: var(--navy); color: rgba(255,255,255,0.5);
+      padding: 40px 5%; display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 20px; font-size: 0.85rem;
+    }
+    footer a { color: rgba(255,255,255,0.6); text-decoration: none; }
+    footer a:hover { color: var(--gold-light); }
+    .footer-links { display: flex; gap: 24px; flex-wrap: wrap; }
+
+    /* ── RESPONSIVE ─────────────────────────────────────── */
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; padding: 60px 5% 40px; min-height: auto; gap: 40px; }
+      .hero-image { order: -1; }
+      .hero-image img { max-width: 340px; }
+      .features-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .steps::before { display: none; }
+      .privacy-grid { grid-template-columns: 1fr; }
+      .faq-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .hero h1 { font-size: 2rem; }
+      .trust-bar { gap: 20px; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="/" class="nav-logo">
+    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/logo_fcc2a7bd.png" alt="SchoolSphere" />
+    <span>SchoolSphere</span>
+  </a>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how-it-works">How it works</a>
+    <a href="#privacy">Privacy</a>
+    <a href="#faq">FAQ</a>
+    <a href="#contact">Contact</a>
+    <a href="/privacy.html">Privacy Policy</a>
+  </div>
+  <a href="https://schoolsphere.app" class="nav-cta">Try the app →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span></span> Now in Beta — Join Free</div>
+    <h1>The school calendar that <em>thinks</em> for you</h1>
+    <p class="hero-sub">SchoolSphere turns school emails, newsletters and letters into organised calendar events — automatically. Never miss a trip, forget PE kit, or miss a party again.</p>
+    <div class="hero-actions">
+      <a href="https://schoolsphere.app" class="btn-primary">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+        Get Started Free
+      </a>
+      <a href="#how-it-works" class="btn-secondary">See how it works</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">30s</div><div class="stat-label">To add an event from email</div></div>
+      <div class="stat"><div class="stat-num">0</div><div class="stat-label">Missed school events</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Free during beta</div></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/hero-illustration-cBSjCRqXDtbUqPAD78v7kF.png" alt="SchoolSphere app illustration" />
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span class="trust-icon">🔒</span> UK GDPR Compliant</div>
+  <div class="trust-item"><span class="trust-icon">🗑️</span> Emails read & deleted — never stored</div>
+  <div class="trust-item"><span class="trust-icon">👨‍👩‍👧‍👦</span> Built by parents, for parents</div>
+  <div class="trust-item"><span class="trust-icon">📱</span> Works on iPhone &amp; Android</div>
+  <div class="trust-item"><span class="trust-icon">🆓</span> Free during beta</div>
+</div>
+
+<!-- FEATURES -->
+<section id="features" class="features-bg">
+  <div class="section-header">
+    <div class="section-label">Features</div>
+    <h2 class="section-title">Everything school life throws at you,<br>organised in one place</h2>
+    <p class="section-sub">From sports day to birthday parties, school trips to club schedules — SchoolSphere keeps your whole family's school life in sync.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon">⚡</div>
+      <h3>Smart Add</h3>
+      <p>Paste any school email, WhatsApp message, or newsletter and SchoolSphere's AI instantly extracts the event, date, time, and what to bring — ready to add in one tap.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📧</div>
+      <h3>Email Auto-Sync</h3>
+      <p>Forward school emails to your unique SchoolSphere address, or connect Gmail directly. Events are extracted automatically and added to your calendar without lifting a finger.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📸</div>
+      <h3>Scan a Letter</h3>
+      <p>Take a photo of any paper letter from school. SchoolSphere reads it, extracts the key dates and requirements, and adds them to your calendar instantly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">📋</div>
+      <h3>Weekly Briefing</h3>
+      <p>Every Sunday evening, get a personalised summary of the week ahead — what's happening, who needs what, and any reminders — so Monday morning is never a surprise.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎒</div>
+      <h3>What to Bring</h3>
+      <p>Every event can have a "bring" checklist — PE kit, £2 donation, packed lunch. Tick items off as you pack and never send your child in without the right kit again.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎂</div>
+      <h3>Party Planner</h3>
+      <p>Track every birthday party invite — venue, time, RSVP status, gift ideas and what to bring. All your children's social calendar in one place.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🏃</div>
+      <h3>Clubs &amp; Activities</h3>
+      <p>Add recurring clubs and activities once — ballet every Monday, football every Wednesday — and they appear automatically on your calendar each week.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🔔</div>
+      <h3>Smart Reminders</h3>
+      <p>Set reminders for any event — 1 day before, 1 hour before, 5 minutes before. SchoolSphere sends push notifications so nothing slips through the cracks.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">👨‍👩‍👧</div>
+      <h3>Family Sharing</h3>
+      <p>Invite a partner, grandparent, or nanny to share your family calendar. Control exactly which children and events they can see.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how-it-works">
+  <div class="section-header">
+    <div class="section-label">How it works</div>
+    <h2 class="section-title">From school email to calendar event<br>in under 30 seconds</h2>
+    <p class="section-sub">No manual typing. No copy-pasting dates. SchoolSphere does the work so you don't have to.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Get your unique address</h3>
+      <p>Sign up and get a personal forwarding address like <em>abc123@inbound.schoolsphere.app</em></p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Forward school emails</h3>
+      <p>Set up auto-forward in Gmail or Outlook, or connect Gmail directly for fully automatic sync</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>AI reads &amp; extracts</h3>
+      <p>SchoolSphere's AI reads the email, pulls out dates, times, requirements and which child it's for</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Events appear instantly</h3>
+      <p>Events land in your calendar with reminders set. You get a notification — done.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PRIVACY -->
+<section id="privacy" class="privacy-section">
+  <div class="privacy-grid">
+    <div>
+      <div class="section-label">Our Privacy Promise</div>
+      <h2 class="section-title">We read it, extract it, delete it</h2>
+      <p class="section-sub" style="color:rgba(255,255,255,0.65)">Your emails are private. SchoolSphere never stores the content of your emails or documents — only the events extracted from them.</p>
+      <div class="privacy-promises">
+        <div class="promise">
+          <div class="promise-icon">📧</div>
+          <div>
+            <h4>Emails are never stored</h4>
+            <p>When you forward an email or connect Gmail, we read the content in memory, extract the event details, and immediately discard the email. We never save your email text.</p>
+          </div>
+        </div>
+        <div class="promise">
+          <div class="promise-icon">📄</div>
+          <div>
+            <h4>Documents deleted immediately</h4>
+            <p>PDFs and photos you upload are processed by AI and permanently deleted the moment extraction is complete. No copies are kept anywhere.</p>
+          </div>
+        </div>
+        <div class="promise">
+          <div class="promise-icon">🔒</div>
+          <div>
+            <h4>UK GDPR compliant</h4>
+            <p>SchoolSphere is operated under UK law. You have full rights to access, export, and delete all your data at any time from within the app.</p>
+          </div>
+        </div>
+        <div class="promise">
+          <div class="promise-icon">🚫</div>
+          <div>
+            <h4>Zero advertising. Zero selling.</h4>
+            <p>We do not use your data for advertising, profiling, or any purpose beyond running the SchoolSphere service. We never sell your data.</p>
+          </div>
+        </div>
+      </div>
+      <div style="margin-top:28px;">
+        <a href="/privacy.html" style="color:var(--gold-light);font-weight:600;font-size:0.9rem;text-decoration:none;border-bottom:1px solid rgba(201,168,76,0.4);padding-bottom:2px;">Read our full Privacy Policy →</a>
+      </div>
+    </div>
+    <div class="privacy-img">
+      <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/feature-privacy-B2wXdhPaVZUQeZbBYMCg3z.png" alt="Privacy illustration" />
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="download-section">
+  <div class="section-label" style="background:rgba(201,168,76,0.2);color:var(--gold-light);">Download</div>
+  <h2 class="section-title">Ready to tame the school chaos?</h2>
+  <p class="section-sub" style="color:rgba(255,255,255,0.65);margin:0 auto;">SchoolSphere is available as a Progressive Web App — install it directly from your browser on iPhone or Android. No App Store needed.</p>
+  <div class="store-buttons">
+    <a href="https://schoolsphere.app" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+      <div class="store-btn-text"><small>Install on</small><span>iPhone / iPad</span></div>
+    </a>
+    <a href="https://schoolsphere.app" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.18 23.76c.3.17.64.19.96.07l12.45-7.19-2.78-2.78-10.63 9.9zm-1.7-20.1C1.2 4 1 4.54 1 5.22v13.56c0 .68.2 1.22.48 1.56l.08.08 7.6-7.6v-.18L1.56 3.58l-.08.08zm18.7 8.28l-2.68-1.55-3.02 3.02 3.02 3.02 2.7-1.56c.77-.44.77-1.48-.02-1.93zM4.14.24L16.59 7.43l-2.78 2.78L3.18.31c-.32-.13-.66-.1-.96.07l-.08-.14z"/></svg>
+      <div class="store-btn-text"><small>Install on</small><span>Android</span></div>
+    </a>
+    <a href="https://schoolsphere.app" class="store-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      <div class="store-btn-text"><small>Open in</small><span>Web Browser</span></div>
+    </a>
+  </div>
+  <div class="beta-note">🎉 Currently in Beta — completely free. Join now and help shape the app.</div>
+</section>
+
+<!-- FAQ -->
+<section id="faq" style="background:var(--off-white);">
+  <div class="section-header">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Questions parents ask before downloading</h2>
+  </div>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h4>Is SchoolSphere free?</h4>
+      <p>Yes — SchoolSphere is completely free during the beta period. We'll introduce optional paid plans in the future, but beta users will always get a generous free tier.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Does it read all my emails?</h4>
+      <p>No. If you connect Gmail, SchoolSphere only reads emails from senders you've added to your trusted senders list. It never touches personal or unrelated emails.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Is my data safe?</h4>
+      <p>Absolutely. Email content is never stored — it's read, extracted, and discarded immediately. Uploaded documents are deleted the moment processing is complete. We're UK GDPR compliant.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Do I need to install an app?</h4>
+      <p>No app store needed. SchoolSphere is a Progressive Web App — just open schoolsphere.app in your browser and tap "Add to Home Screen" for a native app experience.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Can my partner use it too?</h4>
+      <p>Yes! Use Family Sharing to invite a partner, grandparent, or nanny. You control which children and events they can see.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What if the AI gets the date wrong?</h4>
+      <p>Every extracted event is shown to you for review before it's added. You can edit any detail — date, time, title, requirements — before confirming.</p>
+    </div>
+    <div class="faq-item">
+      <h4>Does it work with Google Calendar?</h4>
+      <p>You can export any event as an .ics file to add to Google Calendar, Apple Calendar, or Outlook. Native two-way sync is on our roadmap.</p>
+    </div>
+    <div class="faq-item">
+      <h4>What schools does it work with?</h4>
+      <p>Any school — SchoolSphere works with any email or document from any school. It's not connected to any school system; it simply reads what you share with it.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-header" style="margin-bottom:40px;">
+    <div class="section-label">Get in touch</div>
+    <h2 class="section-title">We'd love to hear from you</h2>
+    <p class="section-sub">Got a question, a bug report, or a feature idea? We're a small team and we read every message.</p>
+  </div>
+  <div class="contact-card">
+    <h3>Contact SchoolSphere</h3>
+    <p>Reach us any time — we typically respond within 24 hours.</p>
+    <div class="contact-links">
+      <a href="mailto:hello@schoolsphere.app" class="contact-link">
+        <span>📧</span> hello@schoolsphere.app
+      </a>
+      <a href="mailto:support@schoolsphere.app" class="contact-link">
+        <span>🛠️</span> support@schoolsphere.app — Technical support
+      </a>
+      <a href="mailto:privacy@schoolsphere.app" class="contact-link">
+        <span>🔒</span> privacy@schoolsphere.app — Privacy &amp; data requests
+      </a>
+      <a href="https://www.instagram.com/SchoolSphereApp" target="_blank" rel="noopener" class="contact-link">
+        <span>📸</span> @SchoolSphereApp on Instagram
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <img src="https://d2xsxph8kpxj0f.cloudfront.net/310519663464353460/oXmgeQnvLuNpdnXwoG9Nsi/logo_fcc2a7bd.png" alt="SchoolSphere" style="width:28px;height:28px;border-radius:6px;" />
+    <span style="color:rgba(255,255,255,0.7);font-weight:700;">SchoolSphere</span>
+  </div>
+  <div class="footer-links">
+    <a href="/privacy.html">Privacy Policy</a>
+    <a href="mailto:hello@schoolsphere.app">Contact</a>
+    <a href="https://schoolsphere.app">Open App</a>
+  </div>
+  <div>© 2026 SchoolSphere Ltd. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
