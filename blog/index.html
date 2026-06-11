@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The SchoolSphere Blog — Parenting problems, solved</title>
+<meta name="description" content="Real problems from the school run — missed mufti days, buried newsletters, WhatsApp chaos — and how to solve them. From the team behind SchoolSphere." />
+<link rel="canonical" href="https://www.schoolsphere.co.uk/blog/" />
+<meta property="og:title" content="The SchoolSphere Blog" />
+<meta property="og:description" content="Parenting problems, solved. Real problems from the school run and how to fix them." />
+<meta property="og:url" content="https://www.schoolsphere.co.uk/blog/" />
+<meta property="og:type" content="website" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2211%22%20fill%3D%22%230C1117%22/%3E%3Ctext%20x%3D%2220%22%20y%3D%2221%22%20font-family%3D%22Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20font-size%3D%2219%22%20fill%3D%22%23F2F0EB%22%20text-anchor%3D%22middle%22%3ES%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #16222D; --navy-2: #243038; --navy-deep: #0C1117;
+    --sage: #6BAF92; --sage-deep: #4C8268;
+    --cream: #F2F0EB; --paper: #ECEAE0;
+    --ink: #1B2731; --ink-soft: #5C6B73; --line: #E1DFD3;
+  }
+  body { font-family: 'DM Sans', sans-serif; color: var(--ink); background: var(--paper); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+  .eyebrow { font-size: 0.72rem; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--sage-deep); }
+  a { color: inherit; }
+
+  .dotted { position: relative; }
+  .dotted::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(rgba(107,175,146,0.11) 1.1px, transparent 1.3px); background-size: 26px 26px; }
+  .dotted > * { position: relative; z-index: 1; }
+
+  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+  .brand-mark { width: 36px; height: 36px; flex: none; border-radius: 9px; }
+  .wordmark { font-family: 'Cormorant Garamond', serif; font-size: 1.55rem; font-weight: 600; line-height: 1; }
+  .wordmark .sp { font-style: italic; color: var(--sage); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    font-weight: 600; font-size: 0.875rem; text-decoration: none; cursor: pointer;
+    border: none; border-radius: 999px; padding: 10px 20px; transition: transform .15s, box-shadow .2s; }
+  .btn-sage { background: var(--sage); color: var(--navy-deep); box-shadow: 0 6px 22px rgba(107,175,146,0.3); }
+  .btn-sage:hover { transform: translateY(-2px); }
+
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(12,17,23,0.86); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  nav .wordmark { color: var(--cream); }
+  .nav-links { display: flex; align-items: center; gap: 30px; }
+  .nav-links a { color: rgba(242,240,235,0.72); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+  .nav-links a:hover { color: var(--sage); }
+
+  .blog-hero { background: var(--navy-deep); padding: 64px 0 58px; text-align: center; }
+  .blog-hero .eyebrow { color: var(--sage); }
+  .blog-hero h1 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: clamp(2.4rem, 4.6vw, 3.6rem); line-height: 1.05; color: var(--cream); margin: 14px 0 12px; letter-spacing: -0.5px; }
+  .blog-hero h1 em { font-style: italic; color: var(--sage); }
+  .blog-hero p { color: rgba(242,240,235,0.7); max-width: 520px; margin: 0 auto; font-size: 1.05rem; }
+
+  .posts { max-width: 760px; margin: 0 auto; padding: 56px 28px 80px; }
+  .post-card { display: block; text-decoration: none; background: var(--cream); border: 1px solid var(--line);
+    border-radius: 20px; padding: 32px 30px; margin-bottom: 20px; transition: transform .2s, box-shadow .2s; }
+  .post-card:hover { transform: translateY(-3px); box-shadow: 0 16px 44px rgba(12,17,23,0.1); }
+  .post-card .eyebrow { display: block; margin-bottom: 10px; }
+  .post-card h2 { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.8rem; line-height: 1.12; color: var(--navy); margin-bottom: 10px; letter-spacing: -0.3px; }
+  .post-card h2 em { font-style: italic; color: var(--sage-deep); }
+  .post-card p { color: var(--ink-soft); font-size: 0.99rem; margin-bottom: 14px; }
+  .post-card .meta { font-size: 0.84rem; color: var(--ink-soft); display: flex; gap: 12px; align-items: center; }
+  .post-card .meta b { color: var(--sage-deep); font-weight: 600; }
+  .read { color: var(--sage-deep); font-weight: 600; }
+
+  .soon { text-align: center; color: var(--ink-soft); margin-top: 36px;
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; }
+
+  footer { background: var(--navy-deep); color: rgba(242,240,235,0.7); padding: 48px 0 32px; }
+  footer .wordmark { color: var(--cream); }
+  .foot-row { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; padding-bottom: 22px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  .foot-links a { color: rgba(242,240,235,0.7); text-decoration: none; font-size: 0.92rem; }
+  .foot-links a:hover { color: var(--sage); }
+  .foot-bottom { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; padding-top: 22px; font-size: 0.85rem; color: rgba(242,240,235,0.45); }
+
+  @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#1C2A33"/><stop offset="100%" stop-color="#0C1117"/></radialGradient></defs><rect width="40" height="40" rx="11" fill="url(#g)"/><circle cx="20" cy="6.5" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="8.31" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="33.5" cy="20" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="20" cy="33.5" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="6.5" cy="20" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="8.31" r="1.15" fill="#6BAF92"/><text x="20" y="20.5" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="19" fill="#F2F0EB" text-anchor="middle" dominant-baseline="central">S</text></svg>
+      <span class="wordmark">School<span class="sp">Sphere</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/blog/">Blog</a>
+      <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the beta</a>
+    </div>
+  </div>
+</nav>
+
+<header class="blog-hero dotted">
+  <div class="wrap">
+    <span class="eyebrow">The SchoolSphere Blog</span>
+    <h1>Parenting problems, <em>solved</em></h1>
+    <p>Real problems from the school run — missed mufti days, buried newsletters, WhatsApp chaos — and what actually fixes them.</p>
+  </div>
+</header>
+
+<main class="posts">
+  <a class="post-card" href="/blog/world-book-day">
+    <span class="eyebrow">Parenting problems, solved · No. 1</span>
+    <h2>"Why did nobody tell me it was <em>World Book Day?</em>"</h2>
+    <p>Spoiler: somebody did. Three weeks ago. In paragraph six of an email titled "Newsletter — Spring Term Week 4". Why school emails are designed to be missed — and what to do about it.</p>
+    <div class="meta"><span>June 2026</span><span>·</span><span>4 min read</span><span class="read">Read →</span></div>
+  </a>
+
+  <p class="soon">More problems being solved soon — the 47-message WhatsApp chat is next.</p>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-row">
+      <a href="/" class="brand"><span class="wordmark">School<span class="sp">Sphere</span></span></a>
+      <div class="foot-links">
+        <a href="/#features">Features</a>
+        <a href="/#pricing">Pricing</a>
+        <a href="mailto:hello@schoolsphere.app">Contact</a>
+        <a href="/privacy">Privacy</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 SchoolSphere. All rights reserved.</span>
+      <span>Made in the UK · UK GDPR compliant</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
