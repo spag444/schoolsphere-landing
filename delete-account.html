@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Delete your account — SchoolSphere</title>
+<meta name="description" content="How to request deletion of your SchoolSphere account and all associated data." />
+<meta name="robots" content="index,follow" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2211%22%20fill%3D%22%230C1117%22/%3E%3Ctext%20x%3D%2220%22%20y%3D%2221%22%20font-family%3D%22Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20font-size%3D%2219%22%20fill%3D%22%23F2F0EB%22%20text-anchor%3D%22middle%22%3ES%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#16222D; --navy-2:#243038; --navy-deep:#0C1117;
+    --sage:#6BAF92; --sage-bright:#83C4A4; --sage-deep:#4C8268; --sage-soft:#A9CCB6;
+    --cream:#F2F0EB; --paper:#ECEAE0; --ink:#1B2731; --ink-soft:#5C6B73; --line:#E1DFD3;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--paper); line-height:1.65; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 0 28px; }
+  .serif { font-family:'Cormorant Garamond',serif; }
+  a { color: inherit; }
+  .eyebrow { font-size:0.72rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--sage-deep); }
+
+  .dotted { position: relative; }
+  .dotted::before { content:""; position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(rgba(107,175,146,0.11) 1.1px, transparent 1.3px); background-size:26px 26px; }
+  .dotted > * { position: relative; z-index: 1; }
+
+  .brand { display:flex; align-items:center; gap:11px; text-decoration:none; }
+  .brand-mark { width:36px; height:36px; flex:none; border-radius:9px; }
+  .wordmark { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600; letter-spacing:0.2px; line-height:1; }
+  .wordmark .sp { font-style:italic; color:var(--sage); }
+
+  nav { position:sticky; top:0; z-index:100; background:rgba(12,17,23,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.07); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:68px; max-width:1180px; margin:0 auto; padding:0 28px; }
+  nav .wordmark { color:var(--cream); }
+  .nav-inner a.back { color:rgba(242,240,235,0.72); text-decoration:none; font-size:0.9rem; font-weight:500; }
+  .nav-inner a.back:hover { color:var(--sage); }
+
+  /* HERO */
+  .head { background:var(--navy-deep); }
+  .head .wrap { padding: 64px 28px 56px; }
+  .head .eyebrow { color: var(--sage); }
+  .head h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:clamp(2.4rem,5vw,3.6rem); line-height:1.05; color:var(--cream); letter-spacing:-0.5px; margin:14px 0 16px; }
+  .head h1 em { font-style:italic; color:var(--sage); }
+  .head p { font-size:1.08rem; color:rgba(242,240,235,0.78); max-width:620px; }
+
+  /* BODY */
+  main .wrap { padding: 56px 28px 72px; }
+  h2 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.7rem; color:var(--navy); margin:40px 0 14px; letter-spacing:-0.3px; }
+  h2:first-child { margin-top:0; }
+  p { margin-bottom:14px; }
+  ul { margin:0 0 14px 1.1rem; }
+  li { margin-bottom:8px; }
+  strong { color: var(--navy); }
+
+  .card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:26px 26px; margin-bottom:20px; box-shadow:0 1px 0 rgba(0,0,0,0.02); }
+  .card .step { display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:var(--sage); color:var(--navy-deep); font-weight:700; font-size:0.95rem; margin-bottom:12px; }
+  .card h3 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.35rem; color:var(--navy); margin-bottom:8px; }
+
+  .btn { display:inline-flex; align-items:center; justify-content:center; gap:9px; font-family:'DM Sans',sans-serif; font-weight:600; font-size:0.95rem; text-decoration:none; cursor:pointer; border:none; border-radius:999px; padding:13px 26px; transition:transform .15s, box-shadow .2s; }
+  .btn-sage { background:var(--sage); color:var(--navy-deep); box-shadow:0 6px 22px rgba(107,175,146,0.3); }
+  .btn-sage:hover { transform:translateY(-2px); box-shadow:0 10px 30px rgba(107,175,146,0.4); }
+
+  .note { font-size:0.92rem; color:var(--ink-soft); }
+  table { width:100%; border-collapse:collapse; margin:6px 0 14px; font-size:0.96rem; }
+  th, td { text-align:left; padding:11px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--navy); font-weight:600; }
+
+  footer { background:var(--navy-deep); color:rgba(242,240,235,0.7); }
+  footer .wrap { padding:34px 28px; display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center; font-size:0.86rem; }
+  footer a { color:rgba(242,240,235,0.7); text-decoration:none; }
+  footer a:hover { color:var(--sage); }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#1C2A33"/><stop offset="100%" stop-color="#0C1117"/></radialGradient></defs><rect width="40" height="40" rx="11" fill="url(#g)"/><circle cx="20" cy="6.5" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="8.31" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="33.5" cy="20" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="20" cy="33.5" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="6.5" cy="20" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="8.31" r="1.15" fill="#6BAF92"/><text x="20" y="20.5" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="19" fill="#F2F0EB" text-anchor="middle" dominant-baseline="central">S</text></svg>
+      <span class="wordmark">School<span class="sp">Sphere</span></span>
+    </a>
+    <a href="/" class="back">← Back to site</a>
+  </div>
+</nav>
+
+<header class="head dotted">
+  <div class="wrap">
+    <span class="eyebrow">Account &amp; data</span>
+    <h1>Delete your <em>account</em></h1>
+    <p>You can permanently delete your SchoolSphere account and the personal data associated with it at any time. Here's how, and exactly what happens to your data.</p>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <h2>How to request deletion</h2>
+
+    <div class="card">
+      <span class="step">1</span>
+      <h3>In the app — fastest</h3>
+      <p>Open SchoolSphere and go to <strong>Settings → Account → Delete account</strong>. Confirm when prompted. Your account and associated data are removed straight away, and your subscription is cancelled.</p>
+      <p class="note">This is the quickest route and requires no waiting.</p>
+    </div>
+
+    <div class="card">
+      <span class="step">2</span>
+      <h3>By email — if you can't access the app</h3>
+      <p>Email us from the address on your SchoolSphere account and we'll process the deletion for you:</p>
+      <p><a class="btn btn-sage" href="mailto:hello@schoolsphere.app?subject=Account%20deletion%20request&amp;body=Please%20delete%20my%20SchoolSphere%20account%20and%20all%20associated%20data.%20The%20email%20address%20on%20my%20account%20is%3A%20">Request deletion by email</a></p>
+      <p class="note">Please send it from the email address registered to your account so we can verify the request. We'll confirm once it's done.</p>
+    </div>
+
+    <h2>What gets deleted</h2>
+    <p>When your account is deleted, we permanently remove:</p>
+    <ul>
+      <li>Your account and profile (name, email address, login credentials)</li>
+      <li>Your children's names and any school details you've added</li>
+      <li>All calendar events, tasks, reminders and clubs created in the app</li>
+      <li>Connected mailbox authorisations (Gmail / Outlook) and any forwarding addresses</li>
+      <li>Your trusted-sender list and app preferences</li>
+    </ul>
+    <p>Email and document <strong>content</strong> is never stored in the first place — it's read in memory, the event details are extracted, and the original is discarded immediately. So there's nothing of that kind to delete.</p>
+
+    <h2>What we may retain, and why</h2>
+    <p>A small amount of data may be kept after deletion only where the law requires it:</p>
+    <table>
+      <tr><th>Data</th><th>Why</th><th>How long</th></tr>
+      <tr><td>Billing &amp; transaction records</td><td>Legal / tax &amp; accounting obligations</td><td>As required by UK law (typically up to 6 years)</td></tr>
+      <tr><td>Limited records of the deletion request</td><td>To evidence we actioned your request</td><td>Minimal retention only</td></tr>
+    </table>
+    <p>Retained records are kept secure, are not used for any other purpose, and are removed once the legal retention period ends.</p>
+
+    <h2>Timeframe</h2>
+    <p>In-app deletions take effect immediately. Email requests are actioned promptly and completed within <strong>30 days</strong>. We'll email you to confirm once your data has been removed.</p>
+
+    <h2>Questions</h2>
+    <p>If you're unsure about anything, contact us at <a href="mailto:hello@schoolsphere.app"><strong>hello@schoolsphere.app</strong></a> and we'll help. For full detail on how we handle your data, see our <a href="/privacy"><strong>Privacy Policy</strong></a>.</p>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 SchoolSphere. All rights reserved.</span>
+    <span><a href="/privacy">Privacy</a> &nbsp;·&nbsp; <a href="/terms">Terms</a> &nbsp;·&nbsp; Made in the UK</span>
+  </div>
+</footer>
+
+</body>
+</html>
