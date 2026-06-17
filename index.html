@@ -171,14 +171,40 @@
   .privacy .sec-sub { color: rgba(242,240,235,0.74); }
 
   /* PRICING */
-  .price-grid { display: grid; grid-template-columns: repeat(2, minmax(0,360px)); gap: 22px; justify-content: center; margin-top: 14px; }
-  .price { background: var(--cream); border: 1px solid var(--line); border-radius: 22px; padding: 36px 32px; }
-  .price.feat-on { border: 1.5px solid var(--sage); position: relative; }
-  .price-flag { position: absolute; top: -13px; left: 32px; background: var(--sage); color: var(--navy-deep); font-size: 0.68rem; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 5px 13px; border-radius: 999px; }
-  .price-name { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: var(--navy); }
-  .price-amt { font-size: 2.6rem; font-weight: 700; color: var(--navy); letter-spacing: -1px; margin: 6px 0 2px; }
-  .price-amt span { font-size: 1rem; font-weight: 500; color: var(--ink-soft); }
-  .price-note { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 8px; }
+  .tier-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; max-width: 880px; margin: 0 auto; }
+  .tier { background: var(--cream); border: 1px solid var(--line); border-radius: 22px; overflow: hidden; }
+  .tier.pro { border: 1.5px solid var(--sage); box-shadow: 0 22px 60px rgba(76,130,104,0.2); }
+  .tier-head { padding: 28px 28px 24px; border-bottom: 1px solid var(--line); position: relative; }
+  .tier.pro .tier-head { background: var(--navy-deep); border-bottom: none; }
+  .tier-name { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 600; color: var(--navy); line-height: 1.1; }
+  .tier.pro .tier-name { color: var(--cream); }
+  .tier-tag { font-size: 0.88rem; color: var(--ink-soft); margin-top: 2px; }
+  .tier.pro .tier-tag { color: var(--sage-soft); }
+  .tier-price { margin-top: 16px; display: flex; align-items: baseline; gap: 7px; }
+  .tier-price b { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; font-weight: 600; color: var(--navy); line-height: 1; letter-spacing: -1px; }
+  .tier.pro .tier-price b { color: var(--cream); }
+  .tier-price span { font-size: 0.9rem; color: var(--ink-soft); }
+  .tier.pro .tier-price span { color: var(--sage-soft); }
+  .tier-alt { margin-top: 6px; font-size: 0.84rem; color: var(--ink-soft); }
+  .tier.pro .tier-alt { color: rgba(242,240,235,0.6); }
+  .tier-alt em { font-style: normal; color: var(--sage-deep); font-weight: 600; }
+  .tier.pro .tier-alt em { color: var(--sage-bright); }
+  .tier-flag { position: absolute; top: 22px; right: 24px; background: var(--sage); color: var(--navy-deep); font-size: 0.64rem; font-weight: 700; letter-spacing: 1.1px; text-transform: uppercase; padding: 5px 11px; border-radius: 999px; }
+  .tier-glabel { display: block; padding: 16px 28px 2px; font-size: 0.66rem; font-weight: 700; letter-spacing: 1.4px; text-transform: uppercase; color: var(--sage-deep); }
+  .tier-glabel.first { padding-top: 18px; }
+  .tier-feats { list-style: none; padding: 6px 28px 10px; margin: 0; }
+  .tier-feats li { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid rgba(225,223,211,0.7); font-size: 0.93rem; align-items: flex-start; }
+  .tier-feats li:last-child { border-bottom: none; }
+  .tier-feats li b { font-weight: 600; }
+  .tier-feats li .sub { color: var(--ink-soft); font-size: 0.84rem; }
+  .tk { flex: none; width: 20px; height: 20px; border-radius: 50%; display: grid; place-items: center; font-size: 0.68rem; font-weight: 700; margin-top: 2px; }
+  .tk.y { background: rgba(107,175,146,0.18); color: var(--sage-deep); }
+  .tk.p { background: #FBF3E2; color: #B9892B; }
+  .tier-cta { padding: 6px 28px 28px; }
+  .tier-legend { display: flex; gap: 22px; justify-content: center; flex-wrap: wrap; margin-top: 26px; font-size: 0.82rem; color: var(--ink-soft); }
+  .tier-legend span { display: inline-flex; align-items: center; gap: 7px; }
+  .tier-legend .tk { width: 17px; height: 17px; font-size: 0.6rem; }
+  @media (max-width: 900px) { .tier-grid { grid-template-columns: 1fr; } }
 
   /* CTA */
   .cta { background: var(--navy-deep); text-align: center; }
@@ -218,7 +244,6 @@
     .step::after { display: none; }
     .priv-grid, .foot-grid { grid-template-columns: 1fr; }
     .more { grid-template-columns: repeat(2,1fr); }
-    .price-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 600px) {
     .wrap { padding: 0 20px; }
@@ -381,23 +406,88 @@
   <div class="wrap">
     <div class="sec-head center reveal">
       <span class="eyebrow">Pricing</span>
-      <h2 class="sec-title">Free while we're in beta</h2>
-      <p class="sec-sub">Join the TestFlight beta today at no cost. When SchoolSphere launches, one simple plan covers your whole family.</p>
+      <h2 class="sec-title">Free to organise. <em>Premium</em> to automate.</h2>
+      <p class="sec-sub">Free during the beta, and free forever once we launch — the full calendar, your children, your family and your term dates. Premium opens the whole app: the AI that reads your school emails, the assistant, and the briefings that hand you the week.</p>
     </div>
-    <div class="price-grid">
-      <div class="price reveal">
-        <div class="price-name serif">Monthly</div>
-        <div class="price-amt">£7.99<span> / month</span></div>
-        <p class="price-note">Everything, billed monthly. Cancel any time.</p>
-        <a class="btn btn-ink" href="https://testflight.apple.com/join/a1uAmfpK" style="width:100%;margin-top:8px">Start with the beta</a>
+
+    <div class="tier-grid">
+
+      <!-- FREE -->
+      <div class="tier reveal">
+        <div class="tier-head">
+          <div class="tier-name">Free</div>
+          <div class="tier-tag">The full calendar, organised by you</div>
+          <div class="tier-price"><b>£0</b><span>forever</span></div>
+          <div class="tier-alt">No card required. No trial clock.</div>
+        </div>
+
+        <span class="tier-glabel first">Your calendar</span>
+        <ul class="tier-feats">
+          <li><span class="tk y">✓</span><span>Calendar in <b>month, week &amp; side-by-side</b> views</span></li>
+          <li><span class="tk y">✓</span><span><b>Add multiple children</b></span></li>
+          <li><span class="tk y">✓</span><span><b>Add family &amp; carers</b> to your account</span></li>
+          <li><span class="tk y">✓</span><span>Smart Add — <b>manual entry</b></span></li>
+          <li><span class="tk y">✓</span><span>Needs Attention flags</span></li>
+          <li><span class="tk y">✓</span><span>Notifications &amp; reminders</span></li>
+          <li><span class="tk y">✓</span><span>Light &amp; dark mode</span></li>
+        </ul>
+
+        <span class="tier-glabel">Tracking &amp; school</span>
+        <ul class="tier-feats">
+          <li><span class="tk p">±</span><span>Clubs, childminder, parties, medical, play dates, sports &amp; fixtures — <span class="sub">manual entry only</span></span></li>
+          <li><span class="tk p">±</span><span><b>School Gate</b> &amp; school holidays — add <b>one school</b> for term dates</span></li>
+          <li><span class="tk y">✓</span><span>Weekly digest</span></li>
+        </ul>
+
+        <div class="tier-cta">
+          <a class="btn btn-ink" href="https://testflight.apple.com/join/a1uAmfpK" style="width:100%">Get started free</a>
+        </div>
       </div>
-      <div class="price feat-on reveal">
-        <span class="price-flag">Best value</span>
-        <div class="price-name serif">Yearly</div>
-        <div class="price-amt">£59.99<span> / year</span></div>
-        <p class="price-note">Two months free versus monthly — the whole family, one price.</p>
-        <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK" style="width:100%;margin-top:8px">Start with the beta</a>
+
+      <!-- PREMIUM -->
+      <div class="tier pro reveal">
+        <div class="tier-head dotted">
+          <span class="tier-flag">Whole app</span>
+          <div class="tier-name">Premium</div>
+          <div class="tier-tag">School life, organised by itself</div>
+          <div class="tier-price"><b>£7.99</b><span>/ month</span></div>
+          <div class="tier-alt">or <em>£59.99/year</em> — save 37% (under £5/month)</div>
+        </div>
+
+        <span class="tier-glabel first">Everything in Free, plus —</span>
+
+        <span class="tier-glabel">Automatic capture</span>
+        <ul class="tier-feats">
+          <li><span class="tk y">✓</span><span><b>Email syncing</b> — connect Gmail &amp; Outlook, or forward to your private address</span></li>
+          <li><span class="tk y">✓</span><span>Smart Add — <b>paste, scan a letter, upload a photo &amp; voice</b></span></li>
+          <li><span class="tk y">✓</span><span><b>External calendar push</b> — sync out to Apple, Google &amp; Outlook</span></li>
+        </ul>
+
+        <span class="tier-glabel">The AI assistant</span>
+        <ul class="tier-feats">
+          <li><span class="tk y">✓</span><span><b>WhatsApp Assistant</b> — add events &amp; ask about your school by message</span></li>
+          <li><span class="tk y">✓</span><span><b>In-app Assistant</b> with memory</span></li>
+          <li><span class="tk y">✓</span><span>Weather-aware assistant</span></li>
+          <li><span class="tk y">✓</span><span><b>AI briefings — Today, Tomorrow &amp; Weekly</b></span></li>
+          <li><span class="tk y">✓</span><span><b>School knowledge base</b> — answers drawn from your school</span></li>
+        </ul>
+
+        <span class="tier-glabel">Tracking &amp; school, unlocked</span>
+        <ul class="tier-feats">
+          <li><span class="tk y">✓</span><span>Clubs, childminder, parties, medical, play dates, sports &amp; fixtures — <b>all entry types</b></span></li>
+          <li><span class="tk y">✓</span><span><b>School Gate</b> — add <b>multiple schools</b> for children at different schools</span></li>
+        </ul>
+
+        <div class="tier-cta">
+          <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK" style="width:100%">Start with the beta</a>
+        </div>
       </div>
+
+    </div>
+
+    <div class="tier-legend reveal">
+      <span><span class="tk y">✓</span> Included</span>
+      <span><span class="tk p">±</span> Limited on Free</span>
     </div>
   </div>
 </section>
