@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SchoolSphere — Email to Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --navy:#0C1117; --navy-2:#121a22;
+    --sage:#6BAF92; --sage-bright:#83C4A4; --sage-deep:#4C8268;
+    --cream:#F2F0EB; --paper:#ECEAE0;
+    --blue:#4F86C6; --orange:#E0822F; --purple:#534AB7; --pink:#D4537E;
+    --lilac:#7C6BD6;
+    --gg:#1F9E66; --gg-d:#188152;
+    --dur:16s;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--navy);
+    font-family:'DM Sans',sans-serif;
+    -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+    text-rendering:optimizeLegibility;
+    display:grid;place-items:center;
+    overflow:hidden;
+  }
+  .wrap{ position:relative; }
+  .stage{
+    position:relative; width:1000px; height:666px;
+    transform-origin:top left;
+    background:transparent;
+    color:var(--cream);
+    overflow:visible;
+  }
+  .glow{
+    position:absolute; inset:-80px;
+    background:
+      radial-gradient(420px 320px at 24% 46%, rgba(107,175,146,.10), transparent 70%),
+      radial-gradient(440px 340px at 82% 50%, rgba(79,134,198,.09), transparent 72%);
+    pointer-events:none;
+  }
+
+  /* ---------------- EMAIL CARD ---------------- */
+  .email{
+    position:absolute; left:40px; top:160px; width:432px;
+    background:linear-gradient(180deg,#fbfaf6,var(--paper));
+    color:#2a2f29; border-radius:18px;
+    box-shadow:0 26px 60px -18px rgba(0,0,0,.6), 0 2px 0 rgba(255,255,255,.5) inset;
+    padding:22px 24px 24px; overflow:hidden;
+    animation:email var(--dur) ease-in-out infinite;
+  }
+  .email-head{ display:flex; align-items:center; gap:11px; margin-bottom:14px; }
+  .avatar{ width:34px;height:34px;border-radius:50%;background:var(--navy);
+    display:grid;place-items:center;flex:none;
+    font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:600;
+    color:var(--cream);font-size:1.15rem; }
+  .from{ font-weight:600;font-size:.86rem;color:#1f241e;line-height:1.2 }
+  .from small{ display:block;font-weight:400;font-size:.73rem;color:#8a8d83;margin-top:1px }
+  .time{ margin-left:auto;font-size:.72rem;color:#9a9d92;flex:none }
+  .subject{ font-family:'Cormorant Garamond',serif;font-weight:600;font-size:1.38rem;
+    line-height:1.16;color:#222722;margin:2px 0 12px; letter-spacing:-.2px }
+  .body{ font-size:.9rem;line-height:1.6;color:#41463e }
+  .body b{ color:#2a2f29;font-weight:600 }
+  .body .greet{ color:#878a80 }
+  .hl{ position:relative; white-space:nowrap; padding:0 2px; border-radius:4px;
+    color:#2a2f29; font-weight:600; }
+  .hl::before{ content:""; position:absolute; left:0; right:0; bottom:1px; top:1px;
+    border-radius:5px; transform:scaleX(0); transform-origin:left center; z-index:-1; }
+  .hl-date::before{ background:rgba(107,175,146,.26); animation:hl1 var(--dur) ease-out infinite }
+  .hl-time::before{ background:rgba(79,134,198,.24);  animation:hl2 var(--dur) ease-out infinite }
+  .hl-action::before{ background:rgba(83,74,183,.20); animation:hl3 var(--dur) ease-out infinite }
+  .hl-money::before{ background:rgba(224,130,47,.24); animation:hl4 var(--dur) ease-out infinite }
+
+  .scan{
+    position:absolute; left:0; right:0; top:0; height:64px; pointer-events:none;
+    background:linear-gradient(180deg, rgba(107,175,146,0) 0%, rgba(107,175,146,.16) 60%, rgba(131,196,164,.32) 100%);
+    border-bottom:1.5px solid rgba(131,196,164,.9);
+    box-shadow:0 8px 22px -6px rgba(107,175,146,.6);
+    opacity:0; animation:scan var(--dur) ease-in-out infinite;
+  }
+
+  /* ---------------- CHIPS ---------------- */
+  .chip{
+    position:absolute; display:inline-flex; align-items:center; gap:8px;
+    padding:8px 14px 8px 12px; border-radius:999px;
+    background:linear-gradient(180deg,#fff,#f6f4ec); color:#2a2f29;
+    font-size:.8rem; font-weight:600; white-space:nowrap;
+    box-shadow:0 10px 26px -10px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.6) inset;
+    opacity:0;
+  }
+  .chip .dot{ width:9px;height:9px;border-radius:50%;flex:none }
+  .chip .k{ color:#9a9d92; font-weight:600; font-size:.66rem; letter-spacing:.6px;
+    text-transform:uppercase; margin-right:-2px }
+  .c-date{ left:92px;  top:300px; --dx:560px; --dy:-86px; animation:chipTop var(--dur) cubic-bezier(.7,0,.2,1) infinite }
+  .c-time{ left:214px; top:300px; --dx:452px; --dy:-86px; animation:chipTop var(--dur) cubic-bezier(.7,0,.2,1) infinite }
+  .c-money{left:92px;  top:362px; --dx:560px; --dy:-140px; animation:chipBot var(--dur) cubic-bezier(.7,0,.2,1) infinite }
+  .c-action{left:188px;top:362px; --dx:470px; --dy:-140px; animation:chipBot var(--dur) cubic-bezier(.7,0,.2,1) infinite }
+  .c-date .dot{ background:var(--sage) }
+  .c-time .dot{ background:var(--blue) }
+  .c-money .dot{ background:var(--orange) }
+  .c-action .dot{ background:var(--purple) }
+
+  /* ---------------- PHONE ---------------- */
+  .phone{
+    position:absolute; left:614px; top:8px; width:322px; height:650px;
+    background:#04070a; border-radius:42px; padding:6px;
+    box-shadow:0 50px 100px -34px rgba(0,0,0,.85), 0 0 0 1px rgba(255,255,255,.07), inset 0 0 0 1.5px rgba(255,255,255,.04);
+    opacity:0; animation:phone var(--dur) ease-in-out infinite;
+  }
+  .screen{ position:relative; width:100%; height:100%; border-radius:36px; overflow:hidden; background:#fff; }
+  .view{ position:absolute; inset:0; display:flex; flex-direction:column; }
+  .view-cal{ animation:viewCal var(--dur) ease-in-out infinite }
+  .view-detail{ opacity:0; animation:viewDetail var(--dur) ease-in-out infinite }
+  .view-home{ opacity:0; animation:viewHome var(--dur) ease-in-out infinite }
+
+  /* status bar (calendar) */
+  .sbar{ position:relative; background:#0C1117; color:#fff; flex:none; display:flex;
+    align-items:center; padding:11px 24px 5px; }
+  .sbar .clk{ font-size:.84rem; font-weight:700; letter-spacing:.3px }
+  .island{ position:absolute; left:50%; top:8px; transform:translateX(-50%);
+    width:80px; height:21px; background:#000; border-radius:12px }
+  .sbr{ margin-left:auto; display:flex; align-items:center; gap:7px }
+  .cell{ display:flex; align-items:flex-end; gap:2px }
+  .cell i{ width:3px; border-radius:1px; background:#fff }
+
+  /* calendar header */
+  .ah{ position:relative; overflow:hidden; background:#0C1117; padding:7px 18px 11px; color:var(--cream); flex:none; }
+  .ah::after{ content:""; position:absolute; top:-46px; right:-34px; width:170px; height:130px;
+    background:radial-gradient(circle, rgba(107,175,146,.16), transparent 68%); pointer-events:none }
+  .ah-top{ position:relative; z-index:1; display:flex; align-items:center; gap:10px; margin-bottom:10px }
+  .ah-title{ font-family:'Cormorant Garamond',serif; font-size:1.8rem; font-weight:600;
+    color:#fff; letter-spacing:-.5px; line-height:1; margin-right:auto }
+  .ah-btn{ width:30px;height:30px;border-radius:50%; background:rgba(255,255,255,.1);
+    display:grid;place-items:center; flex:none; color:#cfd6d1 }
+  .ah-btn svg{ width:15px;height:15px }
+  .seg{ position:relative; z-index:1; display:flex; gap:4px; background:rgba(255,255,255,.07);
+    border-radius:11px; padding:4px; margin:0 auto 10px; width:fit-content }
+  .seg span{ display:flex; align-items:center; justify-content:center; gap:6px;
+    font-size:.71rem; font-weight:600; padding:6px 14px; border-radius:8px; color:#9aa39e }
+  .seg span svg{ width:13px;height:13px }
+  .seg span.on{ background:rgba(255,255,255,.16); color:#fff; box-shadow:0 1px 3px rgba(0,0,0,.3) }
+  .seg .bolt{ color:#EBB54A }
+  .mrow{ display:flex; align-items:center; justify-content:space-between; margin-bottom:11px }
+  .mrow .nav{ width:33px;height:33px;border-radius:12px; background:rgba(255,255,255,.09);
+    display:grid;place-items:center; color:#cfd6d1 }
+  .mrow .nav svg{ width:14px;height:14px }
+  .mrow b{ font-size:1.1rem; font-weight:600; color:#fff; letter-spacing:.1px }
+  .pills{ display:flex; gap:8px }
+  .pill{ display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:600;
+    padding:5px 13px 5px 5px; border-radius:999px; border:1px solid rgba(255,255,255,.2); color:#e4e7e2 }
+  .pill.on{ background:#fff; color:#16201c; border-color:#fff; padding:5px 16px }
+  .pav{ width:21px;height:21px;border-radius:50%; display:grid;place-items:center; font-size:12px; line-height:1 }
+
+  /* calendar grid */
+  .cbody{ background:#fff; padding:12px 15px 9px; flex:none }
+  .cdow{ display:grid; grid-template-columns:repeat(7,1fr); margin-bottom:5px }
+  .cdow span{ text-align:center; font-size:.65rem; font-weight:600; color:#aab1ac }
+  .cgrid{ display:grid; grid-template-columns:repeat(7,1fr) }
+  .cd{ position:relative; height:30px; display:flex; flex-direction:column; align-items:center;
+    font-size:.86rem; color:#23281f; font-weight:500 }
+  .cd.mut{ color:transparent }
+  .cd .n{ width:27px;height:27px; display:grid;place-items:center; border-radius:50%;
+    border:2px solid transparent; box-sizing:border-box; margin-top:1px }
+  .cd.today .n{ border-color:var(--blue); color:#16201c; font-weight:600 }
+  .cd.sel .n{ background:var(--sage); color:#fff; font-weight:700 }
+  .cd .dots{ display:flex; gap:3px; height:6px; margin-top:2px }
+  .cd .dots i{ width:5px;height:5px;border-radius:50% }
+  .dg{ background:var(--sage) } .dpu{ background:var(--purple) }
+  .dpk{ background:var(--pink) } .dbl{ background:var(--blue) } .dor{ background:var(--orange) }
+  .cd.evtday .n{ animation:ring var(--dur) ease-out infinite }
+  .evtdot{ width:5px;height:5px;border-radius:50%; background:var(--blue); opacity:0;
+    animation:popDot var(--dur) cubic-bezier(.5,1.5,.4,1) infinite }
+
+  /* agenda */
+  .agenda{ background:#EEEBE2; flex:1; min-height:0; padding:12px 15px 14px; }
+  .ag-head{ display:flex; align-items:center; margin:0 2px 10px }
+  .ag-title{ font-family:'Cormorant Garamond',serif; font-size:1.34rem; font-weight:600; color:#16201c; letter-spacing:-.2px; white-space:nowrap }
+  .ag-sel{ margin-left:auto; font-size:.68rem; font-weight:600; color:#6c7268; border:1px solid rgba(0,0,0,.14); padding:5px 14px; border-radius:999px }
+  .acard{ background:#fff; border-radius:16px; padding:12px 15px 13px 17px; position:relative;
+    box-shadow:0 16px 32px -16px rgba(0,0,0,.26); transform-origin:50% 0; overflow:hidden;
+    opacity:0; animation:event var(--dur) cubic-bezier(.5,1.4,.4,1) infinite }
+  .acard::before{ content:""; position:absolute; left:0; top:0; bottom:0; width:5px; background:var(--blue) }
+  .ac-top{ display:flex; align-items:baseline; gap:8px }
+  .ac-title{ font-size:1.02rem; font-weight:700; color:var(--blue); line-height:1.1 }
+  .ac-time{ margin-left:auto; font-size:.8rem; font-weight:700; color:var(--blue); flex:none }
+  .ac-loc{ display:flex; align-items:center; gap:6px; font-size:.77rem; color:#6c7268; margin-top:6px }
+  .ac-loc svg{ width:11px;height:13px; color:var(--blue); flex:none }
+  .ac-tags{ display:flex; align-items:center; gap:8px; margin-top:11px; flex-wrap:wrap }
+  .ac-child{ display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:600;
+    color:#5a4ba8; background:rgba(124,107,214,.13); padding:4px 12px 4px 4px; border-radius:999px }
+  .ac-child .av{ width:19px;height:19px;border-radius:50%; background:rgba(124,107,214,.2);
+    display:grid;place-items:center; font-size:11px; line-height:1 }
+  .tag{ display:inline-flex; align-items:center; gap:5px; font-size:.72rem; font-weight:600; padding:4px 10px; border-radius:8px }
+  .tag.pay{ background:rgba(224,130,47,.15); color:#a85e1c }
+  .tag.ck{ background:rgba(107,175,146,.16); color:var(--sage-deep) }
+  .tag.ck svg{ width:11px;height:11px }
+
+  /* tab bar */
+  .tabbar{ flex:none; background:#fff; border-top:1px solid #e9e4d8;
+    display:flex; align-items:flex-end; justify-content:space-between; padding:8px 16px 10px; }
+  .tb{ display:flex; flex-direction:column; align-items:center; gap:4px; font-size:.61rem; font-weight:600; color:#9aa39e; flex:1 }
+  .tb svg{ width:21px;height:21px; stroke:#9aa39e; fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round }
+  .tb.on{ color:var(--sage-deep) } .tb.on svg{ stroke:var(--sage-deep) }
+  .tb-add{ flex:none; position:relative; margin:0 4px }
+  .tb-add .pbtn{ display:flex; align-items:center; gap:7px; background:#0C1117; color:#fff;
+    padding:11px 17px; border-radius:999px; font-size:.71rem; font-weight:600; box-shadow:0 12px 22px -7px rgba(12,17,23,.55) }
+  .tb-add .pbtn svg{ width:15px;height:15px; stroke:#fff; stroke-width:2.2; fill:none; stroke-linecap:round }
+  .tb .badge{ position:absolute; top:-4px; right:9px; min-width:15px; height:15px; padding:0 3px;
+    background:var(--pink); color:#fff; font-size:.54rem; font-weight:700; border-radius:999px;
+    display:grid;place-items:center; box-shadow:0 0 0 1.5px #fff }
+
+  /* ---------------- DETAIL VIEW ---------------- */
+  .dhead{ position:relative; flex:none; background:var(--gg); color:#fff;
+    padding:11px 16px 15px; box-shadow:0 10px 24px -14px rgba(31,158,102,.7) }
+  .dhead .clk{ font-size:.84rem; font-weight:700; color:#fff }
+  .dsb{ display:flex; align-items:center; margin-bottom:13px }
+  .dsb .island2{ position:absolute; left:50%; top:7px; transform:translateX(-50%); width:80px; height:21px; background:#04140d; border-radius:12px }
+  .dsb-r{ margin-left:auto; display:flex; align-items:center; gap:6px; font-size:.74rem; font-weight:700 }
+  .dsb-r .cell i{ background:#fff }
+  .batt{ width:23px;height:12px;border-radius:3px; background:#fff; display:flex; align-items:center; padding:0 2px;
+    position:relative; }
+  .batt::after{ content:""; position:absolute; right:-3px; top:3.5px; width:2px; height:5px; border-radius:1px; background:rgba(255,255,255,.6) }
+  .batt b{ font-size:.5rem; font-weight:800; color:var(--gg); margin:0 auto; letter-spacing:-.3px }
+  .dhtop{ display:flex; align-items:center; margin-bottom:14px }
+  .dhtop-r{ margin-left:auto; display:flex; gap:9px }
+  .dbtn{ width:34px;height:34px;border-radius:50%; background:rgba(255,255,255,.18);
+    display:grid;place-items:center; color:#fff }
+  .dbtn svg{ width:16px;height:16px }
+  .dhmain{ display:flex; gap:13px; align-items:flex-start }
+  .dcal{ width:46px;height:46px;border-radius:11px; background:#f4f1e9; flex:none; overflow:hidden;
+    display:flex; flex-direction:column; box-shadow:0 4px 10px -4px rgba(0,0,0,.4) }
+  .dcal .m{ background:#d24b3e; color:#fff; font-size:.5rem; font-weight:700; text-align:center; padding:2px 0; letter-spacing:.5px }
+  .dcal .d{ flex:1; display:grid; place-items:center; font-size:1.18rem; font-weight:700; color:#23281f }
+  .dhtxt{ padding-top:1px }
+  .dsrc{ display:block; font-size:.62rem; font-weight:700; letter-spacing:1px; color:rgba(255,255,255,.7); margin-bottom:3px }
+  .dttl{ display:block; font-family:'Cormorant Garamond',serif; font-size:1.28rem; font-weight:600; line-height:1.12; letter-spacing:-.2px; color:#fff }
+
+  .dmeta{ flex:none; display:flex; background:#fff; border-bottom:1px solid #eee9dd }
+  .dm{ flex:1; padding:11px 9px; border-right:1px solid #f0ece1; text-align:center }
+  .dm:nth-child(2){ flex:1.2 }
+  .dm:last-child{ border-right:0; flex:1.1 }
+  .dm-k{ display:block; font-size:.58rem; font-weight:700; letter-spacing:.8px; color:#9aa39e; margin-bottom:4px }
+  .dm-for{ text-align:center }
+  .dm-v{ font-size:.82rem; font-weight:700; color:#23281f; white-space:nowrap }
+  .forpill{ display:inline-flex; align-items:center; gap:5px; font-size:.76rem; font-weight:700; color:var(--gg-d);
+    white-space:nowrap; border:1px solid rgba(31,158,102,.45); background:rgba(31,158,102,.08); padding:3px 11px 3px 8px; border-radius:999px }
+
+  .dbody{ flex:1; min-height:0; background:#ECEAE0; overflow:hidden; position:relative }
+  .dscroll{ position:absolute; left:0; right:0; top:0; padding:13px 14px 20px;
+    --scroll:-665px;
+    display:flex; flex-direction:column; gap:13px; animation:dscroll var(--dur) cubic-bezier(.5,0,.5,1) infinite }
+  .dcard{ background:#fff; border-radius:16px; padding:14px 15px; box-shadow:0 10px 26px -16px rgba(0,0,0,.22) }
+  .dc-h{ display:flex; align-items:center; gap:8px; font-size:.66rem; font-weight:700; letter-spacing:.9px; color:#8a8d83; margin-bottom:10px }
+  .dc-h svg{ width:14px;height:14px; color:#9aa39e }
+  .dcard p{ margin:0; font-size:.86rem; line-height:1.5; color:#3b403a }
+  .dcard p b{ color:#23281f; font-weight:600 }
+
+  .mapimg{ height:104px; border-radius:12px; overflow:hidden; position:relative;
+    background:#e7eee4;
+    background-image:
+      linear-gradient(90deg, transparent 30%, #fff 30%, #fff 32%, transparent 32%),
+      linear-gradient(90deg, transparent 67%, #f2efe6 67%, #f2efe6 70%, transparent 70%),
+      linear-gradient(0deg, transparent 54%, #fff 54%, #fff 56.5%, transparent 56.5%),
+      linear-gradient(0deg, transparent 22%, #f2efe6 22%, #f2efe6 24%, transparent 24%); }
+  .mapimg .park{ position:absolute; left:8%; top:58%; width:30%; height:34%; background:#cfe3c4; border-radius:5px }
+  .mapimg .park2{ position:absolute; right:10%; top:12%; width:24%; height:30%; background:#cfe3c4; border-radius:5px }
+  .mapimg .water{ position:absolute; left:0; right:0; bottom:14%; height:7%; background:#bcd6e8; transform:rotate(-2deg) }
+  .mapimg .pin{ position:absolute; left:50%; top:46%; transform:translate(-50%,-100%); }
+  .mapimg .pin svg{ width:24px; height:30px; filter:drop-shadow(0 3px 4px rgba(0,0,0,.3)) }
+  .mapimg .mlbl{ position:absolute; left:50%; top:50%; transform:translateX(-50%); font-size:.56rem; font-weight:700; color:#5b6b8a; white-space:nowrap }
+  .maprow{ display:flex; gap:11px; align-items:flex-start; margin-top:12px }
+  .mapic{ width:34px;height:34px;border-radius:9px; background:#f1f4ef; display:grid;place-items:center; flex:none; font-size:15px }
+  .maprow .addr{ font-size:.83rem; font-weight:600; color:#23281f; line-height:1.32 }
+  .maplink{ display:block; font-size:.78rem; font-weight:600; color:var(--gg-d); margin-top:4px }
+
+  .chklist, .actlist{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px }
+  .chklist li{ display:flex; align-items:center; gap:11px; font-size:.86rem; font-weight:500; color:#2b302a }
+  .chklist .ck{ width:21px;height:21px;border-radius:50%; border:2px solid #cfd3c9; flex:none }
+  .actlist li{ display:flex; gap:10px; font-size:.86rem; font-weight:500; color:#2b302a; line-height:1.34 }
+  .actlist .adot{ width:7px;height:7px;border-radius:50%; background:var(--orange); flex:none; margin-top:7px }
+
+  .dcard-link{ display:flex; align-items:center; gap:12px; background:#eef2f7 }
+  .dcard-link2{ display:flex; align-items:center; gap:12px }
+  .dl-ic{ width:30px;height:30px;border-radius:8px; display:grid;place-items:center; flex:none; color:var(--gg-d) }
+  .dl-ic svg{ width:17px;height:17px }
+  .dl-tx b{ display:block; font-size:.88rem; font-weight:700; color:var(--gg-d); line-height:1.2 }
+  .dl-tx span{ display:block; font-size:.74rem; color:#8a8d83; margin-top:2px; line-height:1.3 }
+  .dl-ar{ margin-left:auto; color:#b5bcae; font-size:1.1rem; font-weight:600; flex:none }
+  .sched{ display:flex; flex-direction:column; gap:10px }
+  .sline{ display:flex; gap:11px; align-items:center; font-size:.84rem; color:#3b403a }
+  .sline b{ color:#23281f; font-weight:700; width:54px; flex:none }
+  .sline .sdot{ width:8px;height:8px;border-radius:50%; background:var(--gg); flex:none }
+
+  /* ---------------- HOME VIEW ---------------- */
+  .hhead{ position:relative; overflow:hidden; flex:none; background:#0C1117; color:var(--cream); padding:0 17px 12px }
+  .hhead::after{ content:""; position:absolute; top:-40px; right:-30px; width:170px; height:140px;
+    background:radial-gradient(circle, rgba(107,175,146,.18), transparent 68%); pointer-events:none }
+  .hgreet{ font-size:.62rem; font-weight:700; letter-spacing:1.4px; color:#8a958f; margin-bottom:4px }
+  .htoprow{ display:flex; align-items:flex-start; position:relative; z-index:1 }
+  .hname{ font-family:'Cormorant Garamond',serif; font-size:1.9rem; font-weight:600; color:#fff; line-height:1; letter-spacing:-.4px; margin-right:auto }
+  .hname i{ color:var(--sage-bright); font-style:italic; font-weight:600 }
+  .hbtns{ display:flex; gap:7px; margin-top:2px }
+  .hbtn{ width:30px;height:30px;border-radius:50%; background:rgba(255,255,255,.1); display:grid;place-items:center; color:#cfd6d1 }
+  .hbtn svg{ width:15px;height:15px }
+  .hsub{ font-size:.62rem; font-weight:600; letter-spacing:.8px; color:#7c867f; margin:7px 0 10px }
+  .hstats{ display:flex; gap:9px; position:relative; z-index:1 }
+  .hstat{ flex:1; background:rgba(255,255,255,.045); border:1px solid rgba(255,255,255,.07); border-radius:13px; padding:9px 12px }
+  .hstat-k{ font-size:.56rem; font-weight:700; letter-spacing:.8px; color:#8a958f; margin-bottom:5px }
+  .hstat-n{ font-size:1.5rem; font-weight:700; color:#fff; line-height:1 }
+  .hstat.clubs .hstat-n{ color:var(--sage-bright) }
+  .hstat-u{ font-size:.64rem; color:#7c867f; margin-top:3px }
+
+  .hbody{ flex:1; min-height:0; background:#ECEAE0; padding:12px 15px 16px; overflow:hidden }
+  .week{ background:#11191f; border-radius:17px; padding:12px 14px; margin-bottom:13px; box-shadow:0 14px 30px -16px rgba(0,0,0,.5) }
+  .week-top{ display:flex; gap:11px; align-items:center; margin-bottom:0 }
+  .week-ic{ width:38px;height:38px;border-radius:11px; background:var(--sage-deep); display:grid;place-items:center; flex:none }
+  .week-ic svg{ width:19px;height:19px; color:#fff }
+  .week-h{ font-size:.96rem; font-weight:700; color:#fff; line-height:1.1 }
+  .week-sub{ font-size:.7rem; color:#8e988f; margin-top:2px }
+  .week-tap{ font-size:.78rem; font-style:italic; color:#aeb6ae; margin:0 0 12px }
+  .week-btns{ display:flex; gap:9px }
+  .wbtn{ display:inline-flex; align-items:center; gap:6px; font-size:.74rem; font-weight:700; padding:8px 15px; border-radius:999px }
+  .wbtn.pri{ background:var(--sage); color:#10231a }
+  .wbtn.sec{ background:rgba(255,255,255,.1); color:#dfe3df }
+  .wbtn svg{ width:13px;height:13px }
+
+  .needs-row{ display:flex; align-items:center; margin:2px 1px 11px }
+  .needs-h{ font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:#16201c; letter-spacing:-.3px }
+  .needs-pill{ margin-left:auto; font-size:.66rem; font-weight:700; color:#b03b63; background:rgba(212,83,126,.14); padding:5px 12px; border-radius:999px }
+
+  .home-card{ border-radius:17px; overflow:hidden; box-shadow:0 18px 36px -16px rgba(0,0,0,.32);
+    animation:homeCard var(--dur) cubic-bezier(.5,1.3,.45,1) infinite; opacity:0 }
+  .hc-top{ background:#0C1117; padding:12px 15px; display:flex; align-items:flex-start; gap:11px }
+  .hc-ic{ width:34px;height:34px;border-radius:50%; background:rgba(224,130,47,.18); display:grid;place-items:center; flex:none; font-size:15px }
+  .hc-tx{ flex:1 }
+  .hc-title{ font-size:.92rem; font-weight:700; color:#fff; line-height:1.22 }
+  .hc-sub{ font-size:.76rem; color:#8a958f; margin-top:3px }
+  .hc-badge{ font-size:.58rem; font-weight:800; letter-spacing:.6px; color:#fff; background:var(--orange); padding:4px 9px; border-radius:7px; flex:none; margin-top:1px }
+  .hc-bot{ background:#fff; padding:11px 15px 13px }
+  .hc-when{ display:inline-flex; align-items:center; gap:6px; font-size:.72rem; font-weight:600; color:#6c7268; background:#f2efe6; padding:5px 12px; border-radius:999px }
+  .hc-when svg{ width:11px;height:11px; color:#9aa39e }
+  .hc-btns{ display:flex; gap:10px; margin-top:12px }
+  .hc-done{ display:inline-flex; align-items:center; gap:6px; font-size:.78rem; font-weight:700; color:#fff; background:var(--sage); padding:9px 18px; border-radius:999px }
+  .hc-done svg{ width:12px;height:12px; stroke:#fff; stroke-width:2.4; fill:none; stroke-linecap:round; stroke-linejoin:round }
+  .hc-dismiss{ font-size:.78rem; font-weight:600; color:#6c7268; background:#fff; border:1px solid #ddd8cb; padding:9px 18px; border-radius:999px }
+
+  /* ---------------- TWEAK CONTROLS ---------------- */
+  .tweaks{ display:none !important; position:fixed; right:18px; bottom:18px; z-index:9999; font-family:'DM Sans',sans-serif; }
+  .tw-toggle{ width:44px; height:44px; border-radius:50%; border:0; cursor:pointer;
+    background:rgba(20,28,36,.82); color:var(--cream); backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px -10px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.08) inset;
+    display:grid; place-items:center; transition:transform .25s ease; margin-left:auto }
+  .tw-toggle svg{ width:20px; height:20px; transition:transform .5s ease }
+  .tweaks[data-open="true"] .tw-toggle svg{ transform:rotate(60deg) }
+  .tw-body{ width:232px; margin-top:10px; padding:16px 16px 14px; border-radius:16px;
+    background:rgba(18,26,34,.9); backdrop-filter:blur(16px); color:var(--cream);
+    box-shadow:0 20px 50px -18px rgba(0,0,0,.8), 0 0 0 1px rgba(255,255,255,.08) inset;
+    transform-origin:bottom right; transition:opacity .2s ease, transform .2s ease;
+    opacity:0; transform:translateY(8px) scale(.97); pointer-events:none }
+  .tweaks[data-open="true"] .tw-body{ opacity:1; transform:none; pointer-events:auto }
+  .tw-title{ font-family:'Cormorant Garamond',serif; font-size:1.2rem; font-weight:600;
+    letter-spacing:.2px; margin-bottom:13px; color:#fff }
+  .tw-row{ display:flex; align-items:center; gap:10px; margin-bottom:14px }
+  .tw-row.tw-col{ flex-direction:column; align-items:stretch; gap:9px }
+  .tw-lbl{ font-size:.76rem; font-weight:600; color:#aeb6b0; white-space:nowrap }
+  .tw-row em{ font-size:.74rem; font-weight:700; color:#fff; font-style:normal; min-width:30px; text-align:right }
+  #twSpeed{ flex:1; height:4px; -webkit-appearance:none; appearance:none; border-radius:3px;
+    background:rgba(255,255,255,.18); outline:none }
+  #twSpeed::-webkit-slider-thumb{ -webkit-appearance:none; width:16px; height:16px; border-radius:50%;
+    background:var(--sage-bright); cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,.5) }
+  #twSpeed::-moz-range-thumb{ width:16px; height:16px; border:0; border-radius:50%; background:var(--sage-bright); cursor:pointer }
+  .tw-sw{ display:flex; gap:9px }
+  .tw-sw button{ width:26px; height:26px; border-radius:50%; cursor:pointer; padding:0;
+    background:var(--c); border:2px solid transparent; transition:transform .15s ease; box-shadow:0 2px 6px rgba(0,0,0,.4) }
+  .tw-sw button:hover{ transform:scale(1.1) }
+  .tw-sw button.on{ border-color:#fff; box-shadow:0 0 0 2px rgba(255,255,255,.25), 0 2px 6px rgba(0,0,0,.4) }
+  .tw-seg{ display:flex; background:rgba(255,255,255,.08); border-radius:9px; padding:3px; gap:2px }
+  .tw-seg button{ flex:1; border:0; cursor:pointer; padding:7px 6px; border-radius:7px;
+    font-size:.72rem; font-weight:600; color:#aeb6b0; background:transparent; transition:.15s }
+  .tw-seg button.on{ background:rgba(255,255,255,.16); color:#fff }
+  .tw-play{ width:100%; border:0; cursor:pointer; padding:10px; border-radius:9px;
+    font-size:.78rem; font-weight:700; color:#16201c; background:var(--sage-bright); transition:.15s }
+  .tw-play:hover{ filter:brightness(1.05) }
+  @media print{ .tweaks{ display:none } }
+
+  /* ---------------- KEYFRAMES ---------------- */
+  @keyframes email{
+    0%   { transform:translateY(-200px) scale(1);   opacity:0 }
+    6%   { transform:translateY(6px) scale(1);       opacity:1 }
+    9%   { transform:translateY(0) scale(1);         opacity:1 }
+    24%  { transform:translateY(0) scale(1);         opacity:1 }
+    30%  { transform:translateY(0) scale(.96);       opacity:.33 }
+    93%  { transform:translateY(0) scale(.96);       opacity:.33 }
+    97%  { transform:translateY(-14px) scale(.95);   opacity:0 }
+    100% { transform:translateY(-200px) scale(1);    opacity:0 }
+  }
+  @keyframes scan{
+    0%,13%{ top:0; opacity:0 }
+    16%   { top:6px; opacity:1 }
+    26%   { top:calc(100% - 64px); opacity:1 }
+    29%   { top:100%; opacity:0 }
+    100%  { top:100%; opacity:0 }
+  }
+  @keyframes hl1{ 0%,16%{transform:scaleX(0)} 19%,90%{transform:scaleX(1)} 94%,100%{transform:scaleX(0)} }
+  @keyframes hl2{ 0%,18%{transform:scaleX(0)} 21%,90%{transform:scaleX(1)} 94%,100%{transform:scaleX(0)} }
+  @keyframes hl3{ 0%,21%{transform:scaleX(0)} 24%,90%{transform:scaleX(1)} 94%,100%{transform:scaleX(0)} }
+  @keyframes hl4{ 0%,23%{transform:scaleX(0)} 26%,90%{transform:scaleX(1)} 94%,100%{transform:scaleX(0)} }
+  @keyframes chipTop{
+    0%,17%{ opacity:0; transform:translate(0,4px) scale(.92) }
+    21%   { opacity:1; transform:translate(0,-9px) scale(1) }
+    31%   { opacity:1; transform:translate(0,-9px) scale(1) }
+    38%   { opacity:1; transform:translate(var(--dx),var(--dy)) scale(.72) }
+    41%   { opacity:0; transform:translate(var(--dx),var(--dy)) scale(.64) }
+    100%  { opacity:0; transform:translate(0,4px) scale(.92) }
+  }
+  @keyframes chipBot{
+    0%,22%{ opacity:0; transform:translate(0,4px) scale(.92) }
+    26%   { opacity:1; transform:translate(0,-9px) scale(1) }
+    31%   { opacity:1; transform:translate(0,-9px) scale(1) }
+    38%   { opacity:1; transform:translate(var(--dx),var(--dy)) scale(.72) }
+    41%   { opacity:0; transform:translate(var(--dx),var(--dy)) scale(.64) }
+    100%  { opacity:0; transform:translate(0,4px) scale(.92) }
+  }
+  @keyframes phone{
+    0%,26%{ opacity:0; transform:translateX(24px) scale(.985) }
+    31%   { opacity:1; transform:translateX(0) scale(1) }
+    96%   { opacity:1; transform:translateX(0) scale(1) }
+    99%   { opacity:0; transform:translateX(0) scale(.99) }
+    100%  { opacity:0 }
+  }
+  @keyframes viewCal{
+    0%,29%{ opacity:0 }
+    33%   { opacity:1 }
+    46%   { opacity:1 }
+    50%   { opacity:0 }
+    100%  { opacity:0 }
+  }
+  @keyframes viewDetail{
+    0%,46%{ opacity:0 }
+    50%   { opacity:1 }
+    67%   { opacity:1 }
+    70%   { opacity:0 }
+    100%  { opacity:0 }
+  }
+  @keyframes viewHome{
+    0%,68%{ opacity:0 }
+    72%   { opacity:1 }
+    96%   { opacity:1 }
+    99%   { opacity:0 }
+    100%  { opacity:0 }
+  }
+  @keyframes homeCard{
+    0%,74%{ opacity:0; transform:translateY(14px) scale(.96) }
+    79%   { opacity:1; transform:translateY(0) scale(1) }
+    96%   { opacity:1; transform:translateY(0) scale(1) }
+    99%   { opacity:0; transform:translateY(0) scale(1) }
+    100%  { opacity:0 }
+  }
+  @keyframes event{
+    0%,35%{ opacity:0; transform:translateY(-14px) scale(.5) }
+    40%   { opacity:1; transform:translateY(0) scale(1) }
+    46%   { opacity:1; transform:translateY(0) scale(1) }
+    49%   { opacity:0; transform:translateY(0) scale(.98) }
+    100%  { opacity:0; transform:translateY(-14px) scale(.5) }
+  }
+  @keyframes popDot{
+    0%,36%{ opacity:0; transform:scale(0) }
+    40%   { opacity:1; transform:scale(1.4) }
+    43%   { opacity:1; transform:scale(1) }
+    47%   { opacity:1; transform:scale(1) }
+    50%,100%{ opacity:0; transform:scale(0) }
+  }
+  @keyframes ring{
+    0%,36%{ border-color:rgba(79,134,198,0); box-shadow:0 0 0 0 rgba(79,134,198,0) }
+    42%   { border-color:rgba(79,134,198,.85); box-shadow:0 0 0 6px rgba(79,134,198,.16) }
+    48%   { border-color:rgba(79,134,198,.4); box-shadow:0 0 0 0 rgba(79,134,198,0) }
+    50%,100%{ border-color:rgba(79,134,198,0) }
+  }
+  @keyframes dscroll{
+    0%,52%{ transform:translateY(0) }
+    55%   { transform:translateY(0) }
+    67%   { transform:translateY(var(--scroll, -300px)) }
+    70%   { transform:translateY(var(--scroll, -300px)) }
+    100%  { transform:translateY(0) }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .email,.scan,.chip,.phone,.view-cal,.view-detail,.view-home,.acard,.evtdot,.cd.evtday .n,.dscroll,.home-card,.hl::before{ animation:none }
+    .phone{ opacity:1 } .view-detail,.view-home{ opacity:0 }
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="stage" id="stage">
+      <div class="glow"></div>
+
+      <!-- EMAIL -->
+      <div class="email">
+        <div class="email-head">
+          <div class="avatar">O</div>
+          <div class="from">Oakfield Primary School<small><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="a0cfc6c6c9c3c5e0cfc1cbc6c9c5ccc48ed3c3c88ed5cb">[email&#160;protected]</a></small></div>
+          <div class="time">14:14</div>
+        </div>
+        <div class="subject">Year 1 Trip — Natural History Museum (Class 1B)</div>
+        <div class="body">
+          <span class="greet">Dear parents,</span> Class&nbsp;1B will visit the
+          <b>Natural History Museum</b> on <span class="hl hl-date">Friday 17th July</span>.
+          Coaches leave at 9:00am — please arrive by <span class="hl hl-time">8:45am</span>.
+          A signed <span class="hl hl-action">permission slip by Wed 1st July</span> and payment of
+          <span class="hl hl-money">£12.50</span> via MCAS are required before the trip.
+        </div>
+        <div class="scan"></div>
+      </div>
+
+      <!-- CHIPS -->
+      <div class="chip c-date"><span class="dot"></span><span class="k">Date</span>Fri 17 Jul</div>
+      <div class="chip c-time"><span class="dot"></span><span class="k">Time</span>8:45am</div>
+      <div class="chip c-money"><span class="dot"></span><span class="k">Pay</span>£12.50</div>
+      <div class="chip c-action"><span class="dot"></span><span class="k">Slip</span>Wed 1 Jul</div>
+
+      <!-- PHONE -->
+      <div class="phone">
+        <div class="screen">
+
+          <!-- CALENDAR VIEW -->
+          <div class="view view-cal">
+            <div class="sbar">
+              <span class="clk">14:14</span>
+              <span class="island"></span>
+              <span class="sbr">
+                <span class="cell"><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i><i style="height:11px"></i></span>
+                <svg width="17" height="12" viewBox="0 0 16 11" fill="none"><path d="M1 3.4C3 1.5 5.4.5 8 .5s5 1 7 2.9M3 5.7C4.4 4.4 6.1 3.7 8 3.7s3.6.7 5 2M5.2 8C6 7.2 6.9 6.8 8 6.8s2 .4 2.8 1.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="10" r="1" fill="#fff"/></svg>
+                <svg width="26" height="13" viewBox="0 0 25 12" fill="none"><rect x=".7" y=".7" width="21" height="10.6" rx="2.8" stroke="#fff" stroke-opacity=".5" stroke-width="1"/><rect x="2.2" y="2.2" width="17" height="7.6" rx="1.6" fill="#fff"/><rect x="23" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".5"/></svg>
+              </span>
+            </div>
+            <div class="ah">
+              <div class="ah-top">
+                <span class="ah-title">Calendar</span>
+                <span class="ah-btn"><svg viewBox="0 0 16 16" fill="none"><path d="M5.6 5.8a2.4 2.4 0 1 1 3.4 2.2c-.7.4-1 .7-1 1.5M8 12.2h.01" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="ah-btn"><svg viewBox="0 0 16 16" fill="none"><path d="M8 3.2v9.6M3.2 8h9.6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
+              </div>
+              <div class="seg">
+                <span class="on"><svg viewBox="0 0 14 14" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1.2"/><rect x="8" y="1" width="5" height="5" rx="1.2"/><rect x="1" y="8" width="5" height="5" rx="1.2"/><rect x="8" y="8" width="5" height="5" rx="1.2"/></svg>Month</span>
+                <span><svg viewBox="0 0 14 14" fill="none"><rect x="1.5" y="2.5" width="11" height="10" rx="1.6" stroke="currentColor" stroke-width="1.3"/><path d="M1.5 5.5h11M4.5 1.2v2.4M9.5 1.2v2.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>Week</span>
+                <span><svg class="bolt" viewBox="0 0 14 14" fill="currentColor"><path d="M8 .8 2.6 8h3.2l-.8 5.2L11 6H7.4z"/></svg>Side</span>
+              </div>
+              <div class="mrow">
+                <span class="nav"><svg viewBox="0 0 12 12" fill="none"><path d="M7.5 2.5 4 6l3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <b>July 2026</b>
+                <span class="nav"><svg viewBox="0 0 12 12" fill="none"><path d="M4.5 2.5 8 6l-3.5 3.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              </div>
+              <div class="pills">
+                <span class="pill on">All</span>
+                <span class="pill"><span class="pav" style="background:#E7E1F6">🦄</span>Evie</span>
+                <span class="pill"><span class="pav" style="background:#E0822F">🦁</span>Jack</span>
+              </div>
+            </div>
+
+            <div class="cbody">
+              <div class="cdow"><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span><span>Su</span></div>
+              <div class="cgrid">
+                <div class="cd mut"><span class="n">x</span></div><div class="cd mut"><span class="n">x</span></div><div class="cd"><span class="n">1</span></div><div class="cd"><span class="n">2</span><div class="dots"><i class="dpk"></i></div></div><div class="cd"><span class="n">3</span></div><div class="cd"><span class="n">4</span></div><div class="cd"><span class="n">5</span></div>
+                <div class="cd"><span class="n">6</span></div><div class="cd"><span class="n">7</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">8</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">9</span><div class="dots"><i class="dg"></i><i class="dpk"></i></div></div><div class="cd"><span class="n">10</span></div><div class="cd"><span class="n">11</span></div><div class="cd"><span class="n">12</span></div>
+                <div class="cd"><span class="n">13</span></div><div class="cd today"><span class="n">14</span></div><div class="cd"><span class="n">15</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">16</span><div class="dots"><i class="dpu"></i></div></div><div class="cd evtday"><span class="n">17</span><div class="dots"><i class="evtdot"></i></div></div><div class="cd"><span class="n">18</span></div><div class="cd"><span class="n">19</span></div>
+                <div class="cd"><span class="n">20</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">21</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">22</span></div><div class="cd"><span class="n">23</span><div class="dots"><i class="dg"></i><i class="dpk"></i><i class="dbl"></i></div></div><div class="cd"><span class="n">24</span></div><div class="cd"><span class="n">25</span></div><div class="cd"><span class="n">26</span></div>
+                <div class="cd"><span class="n">27</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">28</span><div class="dots"><i class="dpu"></i></div></div><div class="cd"><span class="n">29</span></div><div class="cd"><span class="n">30</span></div><div class="cd"><span class="n">31</span></div><div class="cd mut"><span class="n">x</span></div><div class="cd mut"><span class="n">x</span></div>
+              </div>
+            </div>
+
+            <div class="agenda">
+              <div class="ag-head">
+                <span class="ag-title">Fri 17 Jul</span>
+                <span class="ag-sel">Select</span>
+              </div>
+              <div class="acard">
+                <div class="ac-top">
+                  <span class="ac-title">Museum Trip</span>
+                  <span class="ac-time">08:45</span>
+                </div>
+                <div class="ac-loc"><svg viewBox="0 0 12 14" fill="none"><path d="M6 1C3.5 1 1.5 3 1.5 5.4 1.5 8.6 6 13 6 13s4.5-4.4 4.5-7.6C10.5 3 8.5 1 6 1z" stroke="currentColor" stroke-width="1.3"/><circle cx="6" cy="5.4" r="1.4" fill="currentColor"/></svg>Natural History Museum · Coach</div>
+                <div class="ac-tags">
+                  <span class="ac-child"><span class="av">🦄</span>Evie</span>
+                  <span class="tag pay">£12.50</span>
+                  <span class="tag ck"><svg viewBox="0 0 12 12" fill="none"><path d="M2 6.2l2.6 2.6L10 3" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Slip</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="tabbar">
+              <div class="tb"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10"/></svg>Home</div>
+              <div class="tb on"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg>Calendar</div>
+              <div class="tb-add"><span class="pbtn"><svg viewBox="0 0 16 16"><path d="M8 3.5v9M3.5 8h9"/></svg>Smart Add</span></div>
+              <div class="tb"><span class="badge">6</span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12l2.4 2.4L15.5 9.8"/></svg>Action</div>
+              <div class="tb"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="9" r="2.8"/><circle cx="16" cy="10" r="2.2"/><path d="M3.5 19c.5-2.8 2.6-4.5 5-4.5s4.5 1.7 5 4.5M14 19c.3-1.8 1.4-3 3-3"/></svg>Family</div>
+            </div>
+          </div>
+
+          <!-- DETAIL VIEW -->
+          <div class="view view-detail">
+            <div class="dhead">
+              <div class="dsb">
+                <span class="clk">14:14</span>
+                <span class="island2"></span>
+                <span class="dsb-r">
+                  <span class="cell"><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i><i style="height:11px"></i></span>
+                  <span>5G</span>
+                  <span class="batt"><b>92</b></span>
+                </span>
+              </div>
+              <div class="dhtop">
+                <span class="dbtn"><svg viewBox="0 0 16 16" fill="none"><path d="M9.5 3.5 5 8l4.5 4.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="dhtop-r">
+                  <span class="dbtn"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1.5l1.1 2.8L12 5.4 9.4 6.9 8.8 10 8 7.4 5.4 9.1 6 6 3.4 5.1 6.3 4.2z"/></svg></span>
+                  <span class="dbtn"><svg viewBox="0 0 16 16" fill="none"><path d="M10.5 2.5l3 3L6 13l-3.4.6L3 10z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+                </span>
+              </div>
+              <div class="dhmain">
+                <span class="dcal"><span class="m">JUL</span><span class="d">17</span></span>
+                <span class="dhtxt">
+                  <span class="dsrc">GMAIL</span>
+                  <span class="dttl">Year 1 Trip — Natural History Museum (Class 1B)</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="dmeta">
+              <div class="dm"><span class="dm-k">DATE</span><span class="dm-v">Fri 17 Jul</span></div>
+              <div class="dm"><span class="dm-k">TIME</span><span class="dm-v">08:45–15:45</span></div>
+              <div class="dm dm-for"><span class="dm-k">FOR</span><span class="forpill">🦄 Evie</span></div>
+            </div>
+
+            <div class="dbody">
+              <div class="dscroll" id="dscroll">
+                <div class="dcard">
+                  <div class="dc-h"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6.5" stroke="currentColor" stroke-width="1.3"/><path d="M8 7.2v3.4M8 5.2h.01" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>SUMMARY</div>
+                  <p>Class 1B will visit the Natural History Museum on <b>Friday 17th July</b> as part of the 'Rocks &amp; Fossils' topic. Coaches leave school at 9:00am prompt — please arrive by 8:45am. Return expected by 3:45pm. A signed permission slip and payment of <b>£12.50</b> via MCAS are required before the trip.</p>
+                </div>
+
+                <div class="dcard">
+                  <div class="mapimg">
+                    <div class="park"></div><div class="park2"></div><div class="water"></div>
+                    <div class="mlbl">Natural History Museum</div>
+                    <div class="pin"><svg viewBox="0 0 24 30" fill="none"><path d="M12 1C6.5 1 2 5.4 2 10.8 2 18 12 29 12 29s10-11 10-18.2C22 5.4 17.5 1 12 1z" fill="#E0463B"/><circle cx="12" cy="11" r="4" fill="#fff"/></svg></div>
+                  </div>
+                  <div class="maprow">
+                    <span class="mapic">📍</span>
+                    <div>
+                      <div class="addr">Natural History Museum, Cromwell Rd, South Kensington, London SW7 5BD</div>
+                      <span class="maplink">Tap to open in Google Maps →</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="dcard">
+                  <div class="dc-h"><svg viewBox="0 0 16 16" fill="none"><path d="M4 5.5h8v8.5H4z" stroke="currentColor" stroke-width="1.3"/><path d="M6 5.5V4a2 2 0 0 1 4 0v1.5" stroke="currentColor" stroke-width="1.3"/></svg>WHAT TO BRING</div>
+                  <ul class="chklist">
+                    <li><span class="ck"></span>Full school uniform with trainers</li>
+                    <li><span class="ck"></span>Named packed lunch</li>
+                    <li><span class="ck"></span>Water bottle (no fizzy drinks, no nuts)</li>
+                    <li><span class="ck"></span>Waterproof coat</li>
+                  </ul>
+                </div>
+
+                <div class="dcard">
+                  <div class="dc-h"><svg viewBox="0 0 16 16" fill="none"><rect x="2.5" y="2.5" width="11" height="11" rx="2.5" stroke="currentColor" stroke-width="1.3"/><path d="M5.5 8l1.8 1.8L11 5.8" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>ACTIONS NEEDED</div>
+                  <ul class="actlist">
+                    <li><span class="adot"></span>Return signed permission slip by Wed 1st July</li>
+                    <li><span class="adot"></span>Pay £12.50 coach contribution via MCAS</li>
+                  </ul>
+                </div>
+
+                <div class="dcard">
+                  <div class="dc-h"><svg viewBox="0 0 16 16" fill="none"><path d="M3 4h10M3 8h10M3 12h10" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>SCHEDULE</div>
+                  <div class="sched">
+                    <div class="sline"><span class="sdot"></span><b>08:45</b>Arrive &amp; register at school</div>
+                    <div class="sline"><span class="sdot"></span><b>09:00</b>Coaches depart prompt</div>
+                    <div class="sline"><span class="sdot"></span><b>15:45</b>Return to school for pick-up</div>
+                  </div>
+                </div>
+
+                <div class="dcard dcard-link">
+                  <span class="dl-ic"><svg viewBox="0 0 18 18" fill="none"><rect x="2" y="4" width="14" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M3 5l6 4.5L15 5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                  <div class="dl-tx"><b>View original email</b><span>Open the email to find the reply slip or PDF</span></div>
+                  <span class="dl-ar">›</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- HOME VIEW -->
+          <div class="view view-home">
+            <div class="sbar">
+              <span class="clk">11:51</span>
+              <span class="island"></span>
+              <span class="sbr">
+                <span class="cell"><i style="height:5px"></i><i style="height:7px"></i><i style="height:9px"></i><i style="height:11px"></i></span>
+                <svg width="17" height="12" viewBox="0 0 16 11" fill="none"><path d="M1 3.4C3 1.5 5.4.5 8 .5s5 1 7 2.9M3 5.7C4.4 4.4 6.1 3.7 8 3.7s3.6.7 5 2M5.2 8C6 7.2 6.9 6.8 8 6.8s2 .4 2.8 1.2" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/><circle cx="8" cy="10" r="1" fill="#fff"/></svg>
+                <svg width="26" height="13" viewBox="0 0 25 12" fill="none"><rect x=".7" y=".7" width="21" height="10.6" rx="2.8" stroke="#fff" stroke-opacity=".5" stroke-width="1"/><rect x="2.2" y="2.2" width="17" height="7.6" rx="1.6" fill="#fff"/><rect x="23" y="4" width="1.6" height="4" rx=".8" fill="#fff" fill-opacity=".5"/></svg>
+              </span>
+            </div>
+            <div class="hhead">
+              <div class="hgreet">GOOD MORNING</div>
+              <div class="htoprow">
+                <div class="hname">Hi, <i>Paul</i> 👋</div>
+                <div class="hbtns">
+                  <span class="hbtn"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.3" stroke="currentColor" stroke-width="1.3"/><path d="M8 1.5v1.8M8 12.7v1.8M14.5 8h-1.8M3.3 8H1.5M12.6 3.4l-1.3 1.3M4.7 11.3l-1.3 1.3M12.6 12.6l-1.3-1.3M4.7 4.7 3.4 3.4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+                  <span class="hbtn"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="5.5" r="2.6" stroke="currentColor" stroke-width="1.3"/><path d="M3 13.5c.6-2.6 2.6-4 5-4s4.4 1.4 5 4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg></span>
+                  <span class="hbtn"><svg viewBox="0 0 16 16" fill="none"><path d="M5.6 5.8a2.4 2.4 0 1 1 3.4 2.2c-.7.4-1 .7-1 1.5M8 12.2h.01" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                </div>
+              </div>
+              <div class="hsub">ALL EVENTS · ALL CLUBS · ONE SPHERE</div>
+              <div class="hstats">
+                <div class="hstat"><div class="hstat-k">TODAY</div><div class="hstat-n">1</div><div class="hstat-u">event</div></div>
+                <div class="hstat"><div class="hstat-k">THIS WEEK</div><div class="hstat-n">2</div><div class="hstat-u">events</div></div>
+                <div class="hstat clubs"><div class="hstat-k">CLUBS</div><div class="hstat-n">1</div><div class="hstat-u">active</div></div>
+              </div>
+            </div>
+            <div class="hbody">
+              <div class="week">
+                <div class="week-top">
+                  <span class="week-ic"><svg viewBox="0 0 18 18" fill="currentColor"><path d="M9 1l1.3 3.4L13.7 6 10.3 7.3 9 10.7 7.7 7.3 4.3 6l3.4-1.6zM14 10l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></span>
+                  <div><div class="week-h">Your Week Ahead</div><div class="week-sub">AI-powered briefing · Fri 17 Jul</div></div>
+                </div>
+                <p class="week-tap" style="display:none">Tap “This week” to see your AI briefing.</p>
+                <div class="week-btns" style="display:none">
+                  <span class="wbtn pri"><svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 1l1.2 3L12 5.2 9.2 6.4 8 9.5 6.8 6.4 4 5.2 6.8 4z"/></svg>This week</span>
+                  <span class="wbtn sec"><svg viewBox="0 0 16 16" fill="none"><rect x="2.5" y="3.5" width="11" height="10" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 6.5h11M5.5 1.8v2.4M10.5 1.8v2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Tomorrow</span>
+                </div>
+              </div>
+              <div class="needs-row">
+                <span class="needs-h">Needs attention</span>
+                <span class="needs-pill">2 items</span>
+              </div>
+              <div class="home-card">
+                <div class="hc-top">
+                  <span class="hc-ic">💷</span>
+                  <div class="hc-tx">
+                    <div class="hc-title">Complete permission &amp; payment</div>
+                    <div class="hc-sub">Natural History Museum Trip · Evie</div>
+                  </div>
+                  <span class="hc-badge">ACTION</span>
+                </div>
+                <div class="hc-bot">
+                  <span class="hc-when"><svg viewBox="0 0 16 16" fill="none"><rect x="2.5" y="3" width="11" height="10.5" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M2.5 6h11M5.5 1.5v2.4M10.5 1.5v2.4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>Event 17 Jul · £12.50 via MCAS</span>
+                  <div class="hc-btns">
+                    <span class="hc-done"><svg viewBox="0 0 12 12"><path d="M2 6.2l2.6 2.6L10 3"/></svg>Mark Done</span>
+                    <span class="hc-dismiss">Dismiss</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tabbar">
+              <div class="tb on"><svg viewBox="0 0 24 24"><path d="M3 11.5 12 4l9 7.5M5.5 10v9.5h13V10"/></svg>Home</div>
+              <div class="tb"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg>Calendar</div>
+              <div class="tb-add"><span class="pbtn"><svg viewBox="0 0 16 16"><path d="M8 3.5v9M3.5 8h9"/></svg>Smart Add</span></div>
+              <div class="tb"><span class="badge">6</span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M8.5 12l2.4 2.4L15.5 9.8"/></svg>Action</div>
+              <div class="tb"><svg viewBox="0 0 24 24"><circle cx="8.5" cy="9" r="2.8"/><circle cx="16" cy="10" r="2.2"/><path d="M3.5 19c.5-2.8 2.6-4.5 5-4.5s4.5 1.7 5 4.5M14 19c.3-1.8 1.4-3 3-3"/></svg>Family</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TWEAK CONTROLS -->
+  <div class="tweaks" id="tweaks" data-open="false">
+    <button class="tw-toggle" id="twToggle" title="Controls">
+      <svg viewBox="0 0 20 20" fill="none"><path d="M10 6.5a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7z" stroke="currentColor" stroke-width="1.4"/><path d="M10 1.8v2M10 16.2v2M18.2 10h-2M3.8 10h-2M15.8 4.2l-1.4 1.4M5.6 14.4l-1.4 1.4M15.8 15.8l-1.4-1.4M5.6 5.6 4.2 4.2" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+    </button>
+    <div class="tw-body">
+      <div class="tw-title">Animation</div>
+      <div class="tw-row">
+        <span class="tw-lbl">Loop speed</span>
+        <input type="range" id="twSpeed" min="6" max="22" step="0.5" value="16" />
+        <em id="twSpeedV">16s</em>
+      </div>
+      <div class="tw-row tw-col">
+        <span class="tw-lbl">Event colour</span>
+        <div class="tw-sw" id="twColor">
+          <button data-c="#4F86C6" style="--c:#4F86C6" class="on" aria-label="Blue"></button>
+          <button data-c="#6BAF92" style="--c:#6BAF92" aria-label="Sage"></button>
+          <button data-c="#7C6BD6" style="--c:#7C6BD6" aria-label="Lilac"></button>
+          <button data-c="#E0822F" style="--c:#E0822F" aria-label="Orange"></button>
+          <button data-c="#D4537E" style="--c:#D4537E" aria-label="Pink"></button>
+        </div>
+      </div>
+      <div class="tw-row tw-col">
+        <span class="tw-lbl">Background</span>
+        <div class="tw-seg" id="twBg">
+          <button data-bg="navy" class="on">Navy</button>
+          <button data-bg="transparent">Transparent</button>
+        </div>
+      </div>
+      <button class="tw-play" id="twPlay">Pause</button>
+    </div>
+  </div>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Scale the fixed stage to fit BOTH viewport width and height (no scrolling),
+    // and set the detail auto-scroll distance from measured content height.
+    (function(){
+      var stage = document.getElementById('stage');
+      var wrap  = stage.parentElement;
+      var STAGE_W = 1000, STAGE_H = 666;
+      function fit(){
+        var vw = document.documentElement.clientWidth;
+        var vh = (window.visualViewport ? window.visualViewport.height : window.innerHeight);
+        var s = Math.min((Math.min(vw, STAGE_W) - 8) / STAGE_W, (vh - 8) / STAGE_H);
+        stage.style.transform = 'scale(' + s + ')';
+        wrap.style.width  = (STAGE_W * s) + 'px';
+        wrap.style.height = (STAGE_H * s) + 'px';
+      }
+      window.addEventListener('resize', fit);
+      if (window.visualViewport) window.visualViewport.addEventListener('resize', fit);
+      window.addEventListener('load', fit);
+      fit();
+
+      /* ---- tweak controls ---- */
+      var root = document.documentElement, body = document.body;
+      var tweaks = document.getElementById('tweaks');
+      document.getElementById('twToggle').addEventListener('click', function(){
+        tweaks.dataset.open = tweaks.dataset.open === 'true' ? 'false' : 'true';
+      });
+      var speed = document.getElementById('twSpeed'), speedV = document.getElementById('twSpeedV');
+      speed.addEventListener('input', function(){
+        root.style.setProperty('--dur', speed.value + 's');
+        speedV.textContent = speed.value + 's';
+      });
+      var colorWrap = document.getElementById('twColor');
+      colorWrap.addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        root.style.setProperty('--blue', b.dataset.c);
+        colorWrap.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on');
+      });
+      var bgWrap = document.getElementById('twBg');
+      bgWrap.addEventListener('click', function(e){
+        var b = e.target.closest('button'); if(!b) return;
+        body.style.background = b.dataset.bg === 'navy' ? 'var(--navy)' : 'transparent';
+        bgWrap.querySelectorAll('button').forEach(function(x){ x.classList.remove('on'); });
+        b.classList.add('on');
+      });
+      var play = document.getElementById('twPlay'), paused = false;
+      play.addEventListener('click', function(){
+        paused = !paused;
+        document.getAnimations().forEach(function(a){ paused ? a.pause() : a.play(); });
+        play.textContent = paused ? 'Play' : 'Pause';
+      });
+    })();
+  </script>
+</body>
+</html>
