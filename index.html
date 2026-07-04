@@ -217,8 +217,10 @@
   .cta p { color: rgba(242,240,235,0.72); max-width: 480px; margin: 0 auto 28px; }
   .cta-note { margin-top: 20px; font-size: 0.86rem; color: rgba(242,240,235,0.5); }
   /* iOS join — 2-step flow (install TestFlight, then join) */
-  .hero-steps { margin: -12px 0 28px; font-size: 0.9rem; font-weight: 500; color: var(--cream); display: inline-flex; align-items: center; flex-wrap: wrap; gap: 9px; line-height: 1.5; }
-  .hero-steps .s-n { display: inline-flex; align-items: center; justify-content: center; width: 20px; height: 20px; border-radius: 50%; background: rgba(107,175,146,0.16); border: 1px solid var(--sage); color: var(--sage); font-size: 0.76rem; font-weight: 700; }
+  .hero-join { margin-bottom: 18px; }
+  .hero-steps { margin: 11px 0 0; font-size: 0.82rem; font-weight: 500; color: var(--cream); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
+  .hero-steps .hstep { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
+  .hero-steps .s-n { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(107,175,146,0.16); border: 1px solid var(--sage); color: var(--sage); font-size: 0.72rem; font-weight: 700; }
   .hero-steps .s-arrow { color: var(--sage); font-weight: 700; }
   .hero-steps a { color: var(--sage); text-decoration: none; border-bottom: 1px solid rgba(107,175,146,0.5); font-weight: 600; }
   .hero-steps strong { color: var(--sage-bright); font-weight: 700; }
@@ -404,13 +406,15 @@
       <div class="hero-badge"><i></i> iOS beta now open · Android coming soon</div>
       <h1>School life,<br><em>organised by itself.</em></h1>
       <p class="hero-sub">SchoolSphere turns school emails, newsletters, paper letters and WhatsApp messages into calendar events — automatically. Never miss a trip, forget the PE kit, or double-book a party again.</p>
-      <div class="hero-actions">
+      <div class="hero-join">
         <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the iOS beta</a>
+        <p class="hero-steps"><span class="hstep"><span class="s-n">1</span> Install <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a></span> <span class="s-arrow" aria-hidden="true">→</span> <span class="hstep"><span class="s-n">2</span> Tap Join — <strong>no code needed</strong></span></p>
+      </div>
+      <div class="hero-actions">
         <!-- TODO: Android live — restore href when Play open testing is approved: https://play.google.com/apps/testing/app.schoolsphere.android -->
         <span class="btn btn-soon" aria-disabled="true">Android — coming soon</span>
         <a class="btn btn-ghost" href="#see-it">See it in action</a>
       </div>
-      <p class="hero-steps"><span class="s-n">1</span> Install <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> <span class="s-arrow" aria-hidden="true">→</span> <span class="s-n">2</span> Tap Join — <strong>no code needed</strong></p>
       <div class="hero-trust">
         <span>Connect Gmail or Outlook once — every school email synced after</span>
         <span>UK GDPR compliant — read, extract, delete</span>
