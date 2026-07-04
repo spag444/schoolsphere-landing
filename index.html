@@ -216,14 +216,15 @@
   .cta .sec-title em { color: var(--sage); }
   .cta p { color: rgba(242,240,235,0.72); max-width: 480px; margin: 0 auto 28px; }
   .cta-note { margin-top: 20px; font-size: 0.86rem; color: rgba(242,240,235,0.5); }
-  /* iOS join — 2-step flow (install TestFlight, then join) */
-  .hero-join { margin-bottom: 18px; }
-  .hero-steps { margin: 11px 0 0; font-size: 0.82rem; font-weight: 500; color: var(--cream); display: flex; align-items: center; flex-wrap: wrap; gap: 8px; line-height: 1.5; }
-  .hero-steps .hstep { display: inline-flex; align-items: center; gap: 6px; white-space: nowrap; }
-  .hero-steps .s-n { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: rgba(107,175,146,0.16); border: 1px solid var(--sage); color: var(--sage); font-size: 0.72rem; font-weight: 700; }
-  .hero-steps .s-arrow { color: var(--sage); font-weight: 700; }
-  .hero-steps a { color: var(--sage); text-decoration: none; border-bottom: 1px solid rgba(107,175,146,0.5); font-weight: 600; }
-  .hero-steps strong { color: var(--sage-bright); font-weight: 700; }
+  /* iOS join — 2-step stack (install TestFlight first, then join) */
+  .hero-join { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 20px; }
+  .hstep-row { display: flex; align-items: center; gap: 12px; }
+  .hstep-row .s-n { flex: none; display: inline-flex; align-items: center; justify-content: center; width: 24px; height: 24px; border-radius: 50%; background: rgba(107,175,146,0.16); border: 1px solid var(--sage); color: var(--sage); font-size: 0.82rem; font-weight: 700; }
+  .hstep-main { display: flex; flex-direction: column; align-items: flex-start; gap: 5px; }
+  .hstep-row .btn { min-width: 210px; }
+  .hstep-note { font-size: 0.82rem; color: rgba(242,240,235,0.6); }
+  .btn-join2 { background: rgba(107,175,146,0.1); color: var(--sage-bright); border: 1px solid var(--sage); }
+  .btn-join2:hover { background: rgba(107,175,146,0.18); transform: translateY(-2px); }
   .join-flow { display: flex; align-items: flex-start; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 0 auto 22px; }
   .join-step { display: flex; flex-direction: column; align-items: center; gap: 11px; }
   .join-step .btn { width: 210px; }
@@ -407,8 +408,20 @@
       <h1>School life,<br><em>organised by itself.</em></h1>
       <p class="hero-sub">SchoolSphere turns school emails, newsletters, paper letters and WhatsApp messages into calendar events — automatically. Never miss a trip, forget the PE kit, or double-book a party again.</p>
       <div class="hero-join">
-        <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the iOS beta</a>
-        <p class="hero-steps"><span class="hstep"><span class="s-n">1</span> Install <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a></span> <span class="s-arrow" aria-hidden="true">→</span> <span class="hstep"><span class="s-n">2</span> Tap Join — <strong>no code needed</strong></span></p>
+        <div class="hstep-row">
+          <span class="s-n">1</span>
+          <div class="hstep-main">
+            <a class="btn btn-sage" href="https://apps.apple.com/app/testflight/id899247664">Install TestFlight</a>
+            <span class="hstep-note">Apple's free beta app — do this first</span>
+          </div>
+        </div>
+        <div class="hstep-row">
+          <span class="s-n">2</span>
+          <div class="hstep-main">
+            <a class="btn btn-join2" href="https://testflight.apple.com/join/a1uAmfpK">Join the iOS beta</a>
+            <span class="hstep-note">No code needed</span>
+          </div>
+        </div>
       </div>
       <div class="hero-actions">
         <!-- TODO: Android live — restore href when Play open testing is approved: https://play.google.com/apps/testing/app.schoolsphere.android -->
