@@ -216,6 +216,19 @@
   .cta .sec-title em { color: var(--sage); }
   .cta p { color: rgba(242,240,235,0.72); max-width: 480px; margin: 0 auto 28px; }
   .cta-note { margin-top: 20px; font-size: 0.86rem; color: rgba(242,240,235,0.5); }
+  /* iOS join — 2-step flow (install TestFlight, then join) */
+  .hero-note { margin: -16px 0 28px; font-size: 0.82rem; color: rgba(242,240,235,0.55); }
+  .hero-note a { color: var(--sage); text-decoration: none; border-bottom: 1px solid rgba(107,175,146,0.4); }
+  .join-flow { display: flex; align-items: flex-start; justify-content: center; gap: 16px; flex-wrap: wrap; margin: 0 auto 22px; }
+  .join-step { display: flex; flex-direction: column; align-items: center; gap: 11px; }
+  .join-step .btn { width: 210px; }
+  .step-n { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(242,240,235,0.55); }
+  .step-n b { width: 21px; height: 21px; border-radius: 50%; background: rgba(107,175,146,0.14); border: 1px solid rgba(107,175,146,0.4); color: var(--sage); display: inline-flex; align-items: center; justify-content: center; font-size: 0.76rem; }
+  .join-sub { font-size: 0.8rem; color: rgba(242,240,235,0.5); }
+  .join-arrow { align-self: center; margin-top: 40px; color: rgba(242,240,235,0.32); font-size: 1.2rem; }
+  .join-help { max-width: 500px; margin: 0 auto; font-size: 0.9rem; color: rgba(242,240,235,0.68); line-height: 1.6; }
+  .join-reassure { max-width: 500px; margin: 8px auto 0; font-size: 0.84rem; color: rgba(242,240,235,0.5); line-height: 1.55; }
+  @media (max-width: 560px) { .join-arrow { display: none; } .join-step .btn { width: 240px; } }
 
   /* FAQ */
   .faq-list { max-width: 760px; margin: 0 auto; }
@@ -394,6 +407,7 @@
         <span class="btn btn-soon" aria-disabled="true">Android — coming soon</span>
         <a class="btn btn-ghost" href="#see-it">See it in action</a>
       </div>
+      <p class="hero-note">Requires Apple's free <a href="https://apps.apple.com/app/testflight/id899247664">TestFlight</a> app — install it first, then tap Join. No code needed.</p>
       <div class="hero-trust">
         <span>Connect Gmail or Outlook once — every school email synced after</span>
         <span>UK GDPR compliant — read, extract, delete</span>
@@ -695,10 +709,24 @@
     <div class="sec-head center reveal" style="margin-bottom:0">
       <span class="eyebrow" style="color:var(--sage)">Download</span>
       <h2 class="sec-title">Ready to <em>tame the school chaos?</em></h2>
-      <p>Join the iOS beta on TestFlight and be among the first to use SchoolSphere — Android coming soon.</p>
-      <div class="hero-actions" style="justify-content:center">
-        <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the iOS beta</a>
-        <!-- TODO: Android live — restore href when Play open testing is approved: https://play.google.com/apps/testing/app.schoolsphere.android -->
+      <p>Be among the first to use SchoolSphere — join the iOS beta in two quick steps.</p>
+      <div class="join-flow">
+        <div class="join-step">
+          <span class="step-n"><b>1</b> Install</span>
+          <a class="btn btn-ghost" href="https://apps.apple.com/app/testflight/id899247664">Install TestFlight</a>
+          <span class="join-sub">Apple's free beta app</span>
+        </div>
+        <span class="join-arrow" aria-hidden="true">→</span>
+        <div class="join-step">
+          <span class="step-n"><b>2</b> Then join</span>
+          <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the iOS beta</a>
+          <span class="join-sub">No code needed</span>
+        </div>
+      </div>
+      <div class="join-help">iOS betas run through Apple's TestFlight app. Install it first, then tap Join — no code needed.</div>
+      <div class="join-reassure">If TestFlight asks for a code, come back and tap Join again — no code is needed.</div>
+      <!-- TODO: Android live — restore href when Play open testing is approved: https://play.google.com/apps/testing/app.schoolsphere.android -->
+      <div class="hero-actions" style="justify-content:center;margin-top:26px">
         <span class="btn btn-soon" aria-disabled="true">Android — coming soon</span>
       </div>
       <div class="cta-note">Free during beta · iPhone today · Android coming soon</div>
