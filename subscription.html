@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SchoolSphere — Keep Premium</title>
+<meta name="description" content="Keep SchoolSphere Premium after your trial. Choose monthly £7.99 or annual £59.99 — email sync, the assistant and your daily AI briefings. Secure checkout by Stripe." />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2211%22%20fill%3D%22%230C1117%22/%3E%3Ccircle%20cx%3D%2220.00%22%20cy%3D%226.50%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2226.75%22%20cy%3D%228.31%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2231.69%22%20cy%3D%2213.25%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2233.50%22%20cy%3D%2220.00%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2231.69%22%20cy%3D%2226.75%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2226.75%22%20cy%3D%2231.69%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2220.00%22%20cy%3D%2233.50%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2213.25%22%20cy%3D%2231.69%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%228.31%22%20cy%3D%2226.75%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%226.50%22%20cy%3D%2220.00%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%228.31%22%20cy%3D%2213.25%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2213.25%22%20cy%3D%228.31%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ctext%20x%3D%2220%22%20y%3D%2220.5%22%20font-family%3D%22Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20font-size%3D%2216%22%20fill%3D%22%23F2F0EB%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3ES%3C/text%3E%3C/svg%3E" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy:#16222D; --navy-2:#243038; --navy-deep:#0C1117;
+    --sage:#6BAF92; --sage-bright:#83C4A4; --sage-deep:#4C8268; --sage-soft:#A9CCB6;
+    --cream:#F2F0EB; --paper:#ECEAE0; --ink:#1B2731; --ink-soft:#5C6B73; --line:#E1DFD3;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family:'DM Sans',sans-serif; color:var(--ink); background:var(--navy-deep); line-height:1.65; -webkit-font-smoothing:antialiased; }
+  a { color:inherit; }
+  .wrap { max-width:1180px; margin:0 auto; padding:0 28px; }
+  .serif { font-family:'Cormorant Garamond',serif; }
+
+  /* NAV */
+  nav { position:sticky; top:0; z-index:100; background:rgba(12,17,23,0.86); backdrop-filter:blur(14px); border-bottom:1px solid rgba(255,255,255,0.07); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; height:68px; }
+  .brand { display:flex; align-items:center; gap:11px; text-decoration:none; }
+  .brand-mark { width:36px; height:36px; flex:none; border-radius:9px; }
+  .wordmark { font-family:'Cormorant Garamond',serif; font-size:1.55rem; font-weight:600; letter-spacing:0.2px; line-height:1; color:var(--cream); }
+  .wordmark .sp { font-style:italic; color:var(--sage); }
+  .nav-links { display:flex; align-items:center; gap:30px; }
+  .nav-links a { color:rgba(242,240,235,0.72); text-decoration:none; font-size:0.9rem; font-weight:500; transition:color .2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--sage); }
+  .nav-toggle { display:none; background:none; border:none; color:var(--cream); font-size:1.5rem; cursor:pointer; }
+
+  /* SPLIT */
+  .checkout { min-height:calc(100vh - 68px); display:grid; grid-template-columns:0.94fr 1.06fr; }
+
+  /* LEFT */
+  .co-left { position:relative; background:var(--navy-deep); padding:52px; overflow:hidden; display:flex; flex-direction:column; justify-content:center; }
+  .co-left .dots { position:absolute; inset:0; background-image:radial-gradient(rgba(107,175,146,.10) 1.1px, transparent 1.3px); background-size:26px 26px; pointer-events:none; }
+  .co-left .glow { position:absolute; top:-60px; right:-50px; width:300px; height:240px; background:radial-gradient(circle, rgba(107,175,146,.15), transparent 68%); pointer-events:none; }
+  .co-inner { position:relative; max-width:420px; }
+  .co-eyebrow { font-size:.72rem; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--sage); }
+  .co-h1 { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:2.7rem; line-height:1.04; letter-spacing:-.5px; color:var(--cream); margin:12px 0 0; }
+  .co-h1 em { font-style:italic; color:var(--sage); }
+  .co-lead { font-size:1.04rem; line-height:1.6; color:rgba(242,240,235,.74); margin:16px 0 0; }
+  .incl { margin-top:30px; background:rgba(255,255,255,.04); border:1px solid rgba(107,175,146,.22); border-radius:18px; padding:22px; }
+  .incl-top { display:flex; align-items:center; gap:13px; margin-bottom:16px; }
+  .incl-logo { width:44px; height:44px; border-radius:13px; display:block; flex:none; }
+  .incl-name { font-size:1.05rem; font-weight:700; color:#fff; }
+  .incl-tag { font-size:.8rem; color:rgba(242,240,235,.6); }
+  .incl-rule { height:1px; background:rgba(255,255,255,.08); margin-bottom:16px; }
+  .incl-feats { display:flex; flex-direction:column; gap:10px; }
+  .incl-feats span { font-size:.9rem; color:rgba(242,240,235,.82); display:flex; gap:10px; align-items:center; }
+  .incl-feats span b { color:var(--sage); font-weight:700; }
+  .co-trust { margin-top:22px; font-size:.84rem; color:rgba(242,240,235,.5); }
+
+  /* RIGHT */
+  .co-right { background:var(--cream); padding:52px; display:flex; flex-direction:column; justify-content:center; }
+  .co-form { width:100%; max-width:440px; margin:0 auto; }
+  .co-title { font-family:'Cormorant Garamond',serif; font-weight:600; font-size:1.95rem; letter-spacing:-.4px; color:#16222D; margin:0; }
+  .co-sub { font-size:.94rem; color:var(--ink-soft); margin:6px 0 26px; }
+
+  .plans { display:flex; flex-direction:column; gap:13px; }
+  .plan-opt { position:relative; display:flex; gap:14px; align-items:flex-start; background:#fbfaf6; border:1.5px solid var(--line); border-radius:16px; padding:18px 19px; cursor:pointer; transition:all .18s; }
+  .plan-opt.sel { background:#fff; border-color:var(--sage); box-shadow:0 12px 30px -16px rgba(76,130,104,.5); }
+  .radio { flex:none; width:20px; height:20px; border-radius:50%; margin-top:2px; background:#fff; border:1.5px solid #c2c8be; display:grid; place-items:center; transition:all .18s; }
+  .plan-opt.sel .radio { background:var(--sage-deep); border-color:var(--sage-deep); }
+  .radio i { width:9px; height:9px; border-radius:50%; background:#fff; opacity:0; transition:opacity .18s; }
+  .plan-opt.sel .radio i { opacity:1; }
+  .plan-main { flex:1; }
+  .plan-name { display:flex; align-items:center; gap:9px; font-size:1.05rem; font-weight:700; color:#16222D; }
+  .plan-badge { font-size:.62rem; font-weight:700; letter-spacing:.8px; text-transform:uppercase; background:var(--sage); color:#10231a; padding:3px 9px; border-radius:999px; }
+  .plan-desc { font-size:.85rem; color:var(--ink-soft); margin-top:3px; }
+  .plan-cost { text-align:right; flex:none; }
+  .plan-cost b { font-family:'Cormorant Garamond',serif; font-size:1.5rem; font-weight:600; color:#16222D; line-height:1; }
+  .plan-cost span { display:block; font-size:.74rem; color:var(--ink-soft); margin-top:2px; }
+
+  .cta { margin-top:24px; display:flex; align-items:center; justify-content:center; gap:9px; background:var(--sage); color:#10231a; font-size:1rem; font-weight:700; padding:16px; border-radius:12px; cursor:pointer; box-shadow:0 12px 28px -12px rgba(107,175,146,.55); border:none; width:100%; font-family:'DM Sans',sans-serif; transition:transform .15s, box-shadow .2s; }
+  .cta:hover { transform:translateY(-2px); box-shadow:0 18px 38px -12px rgba(107,175,146,.6); }
+  .cta svg { width:16px; height:16px; }
+  .fineprint { text-align:center; font-size:.84rem; color:var(--ink-soft); margin:14px 0 0; }
+  .fineprint a { color:var(--sage-deep); font-weight:600; text-decoration:none; }
+  .secured { display:flex; align-items:center; justify-content:center; gap:8px; margin-top:22px; padding-top:20px; border-top:1px solid var(--line); font-size:.82rem; color:#8a8d83; }
+  .secured .stripe { font-weight:800; color:#635BFF; letter-spacing:-.3px; font-size:.92rem; }
+
+  @media (max-width:900px) {
+    .checkout { grid-template-columns:1fr; }
+    .co-left, .co-right { padding:40px 26px; }
+    .nav-links a:not(.active) { display:none; }
+  }
+  @media (max-width:600px) { .wrap { padding:0 20px; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a href="index.html" class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#1C2A33"/><stop offset="100%" stop-color="#0C1117"/></radialGradient></defs><rect width="40" height="40" rx="11" fill="url(#g)"/><circle cx="20.00" cy="6.50" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="8.31" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="33.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="20.00" cy="33.50" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="6.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="8.31" r="1.15" fill="#6BAF92"/><text x="20" y="20.5" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="19" fill="#F2F0EB" text-anchor="middle" dominant-baseline="central">S</text></svg>
+      <span class="wordmark">School<span class="sp">Sphere</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#inside">A look inside</a>
+      <a href="index.html#privacy">Privacy</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="subscription.html" class="active">Subscribe</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+  </div>
+</nav>
+
+<div class="checkout">
+
+  <!-- LEFT — value / what's included -->
+  <div class="co-left">
+    <div class="dots"></div>
+    <div class="glow"></div>
+    <div class="co-inner">
+      <div class="co-eyebrow">Your free trial has ended</div>
+      <h1 class="co-h1">Keep <em>Premium</em>.</h1>
+      <p class="co-lead">Subscribe to keep email sync, the assistant and your daily briefings. Without a subscription your account switches to Basic mode — your calendar stays, the automation stops.</p>
+
+      <div class="incl">
+        <div class="incl-top">
+          <img class="incl-logo" src="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2040%2040%22%3E%3Crect%20width%3D%2240%22%20height%3D%2240%22%20rx%3D%2211%22%20fill%3D%22%230C1117%22/%3E%3Ccircle%20cx%3D%2220.00%22%20cy%3D%226.50%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2226.75%22%20cy%3D%228.31%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2231.69%22%20cy%3D%2213.25%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2233.50%22%20cy%3D%2220.00%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2231.69%22%20cy%3D%2226.75%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2226.75%22%20cy%3D%2231.69%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2220.00%22%20cy%3D%2233.50%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2213.25%22%20cy%3D%2231.69%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%228.31%22%20cy%3D%2226.75%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%226.50%22%20cy%3D%2220.00%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%228.31%22%20cy%3D%2213.25%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ccircle%20cx%3D%2213.25%22%20cy%3D%228.31%22%20r%3D%221.15%22%20fill%3D%22%236BAF92%22/%3E%3Ctext%20x%3D%2220%22%20y%3D%2220.5%22%20font-family%3D%22Georgia%2C%20serif%22%20font-style%3D%22italic%22%20font-weight%3D%22700%22%20font-size%3D%2216%22%20fill%3D%22%23F2F0EB%22%20text-anchor%3D%22middle%22%20dominant-baseline%3D%22central%22%3ES%3C/text%3E%3C/svg%3E" alt="SchoolSphere" />
+          <div>
+            <div class="incl-name">Premium</div>
+            <div class="incl-tag">School life, organised by itself</div>
+          </div>
+        </div>
+        <div class="incl-rule"></div>
+        <div class="incl-feats">
+          <span><b>✓</b> Email sync — Gmail &amp; Outlook</span>
+          <span><b>✓</b> WhatsApp &amp; in-app assistant</span>
+          <span><b>✓</b> AI briefings — Today, Tomorrow &amp; Weekly</span>
+          <span><b>✓</b> Multiple schools &amp; all entry types</span>
+        </div>
+      </div>
+
+      <p class="co-trust">Cancel any time — manage your subscription from the app.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT — plan selection -->
+  <div class="co-right">
+    <div class="co-form">
+      <h2 class="co-title">Choose your plan</h2>
+      <p class="co-sub">Pick monthly or yearly — you'll confirm payment securely with Stripe on the next step.</p>
+
+      <div class="plans">
+        <div class="plan-opt sel" data-plan="annual">
+          <div class="radio"><i></i></div>
+          <div class="plan-main">
+            <div class="plan-name">Annual <span class="plan-badge">Save 37%</span></div>
+            <div class="plan-desc">Best value — works out under £5 a month.</div>
+          </div>
+          <div class="plan-cost"><b>£59.99</b><span>per year</span></div>
+        </div>
+        <div class="plan-opt" data-plan="monthly">
+          <div class="radio"><i></i></div>
+          <div class="plan-main">
+            <div class="plan-name">Monthly</div>
+            <div class="plan-desc">Flexible — pay month to month.</div>
+          </div>
+          <div class="plan-cost"><b>£7.99</b><span>per month</span></div>
+        </div>
+      </div>
+
+      <button class="cta" type="button" id="continueBtn">
+        <span data-cta>Continue to secure checkout</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="#10231a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </button>
+
+      <p class="fineprint">You'll be redirected to Stripe to pay. Prefer not to? <a href="index.html#pricing">Switch to Basic</a>.</p>
+
+      <div class="secured">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#6BAF92" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/></svg>
+        Secured by <span class="stripe">stripe</span> · Card, Apple Pay &amp; Google Pay
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  /* ============================================================
+     STRIPE CONFIG — replace these with your real Stripe links.
+     Fastest: create two Payment Links in the Stripe dashboard
+     (one per price) and paste their URLs here.
+     ============================================================ */
+  var CHECKOUT_LINKS = {
+    annual:  'https://buy.stripe.com/test_14AdR80Xndt94v46il73G01',
+    monthly: 'https://buy.stripe.com/test_dRm6oG9tTgFlf9I6il73G00'
+  };
+
+  var state = { plan: 'annual' };
+
+  // The trial-end email links here with the user's account id, e.g.
+  //   subscription.html?uid=USER_123&email=paul@email.com
+  // We forward those to Stripe so the webhook can match payment -> account.
+  var params = new URLSearchParams(window.location.search);
+  var uid = params.get('uid') || '';
+  var email = params.get('email') || '';
+
+  document.querySelectorAll('.plan-opt').forEach(function (opt) {
+    opt.addEventListener('click', function () {
+      state.plan = opt.getAttribute('data-plan');
+      document.querySelectorAll('.plan-opt').forEach(function (o) {
+        o.classList.toggle('sel', o === opt);
+      });
+    });
+  });
+
+  document.getElementById('continueBtn').addEventListener('click', function () {
+    var base = CHECKOUT_LINKS[state.plan];
+    var url = new URL(base);
+    if (uid)   url.searchParams.set('client_reference_id', uid);
+    if (email) url.searchParams.set('prefilled_email', email);
+    window.location.href = url.toString();
+  });
+})();
+</script>
+</body>
+</html>
