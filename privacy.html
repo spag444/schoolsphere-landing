@@ -91,7 +91,7 @@ footer a:hover{color:var(--sage)}
       <div class="policy-section" id="data-we-collect">
         <h2>3. What Data We Collect</h2>
         <h3>Account information</h3>
-        <p>When you sign in via Google OAuth, we store your name, email address, unique user ID, and account creation date. We do not store your password. By completing sign-in, you confirm that you are 18 or over.</p>
+        <p>When you sign in &mdash; via Clerk, our authentication provider, using Apple, Google, Microsoft, or a one-time email code &mdash; we store your name, email address, unique user ID, and account creation date. We do not store any password. By completing sign-in, you confirm that you are 18 or over.</p>
         <h3>Children's profile information</h3>
         <p>When you add a child, we store their first name or nickname, year group, avatar emoji, and colour. We do not collect children's dates of birth, addresses, photographs, or government identifiers. Children cannot create accounts or access the app directly.</p>
         <h3>Events and calendar data</h3>
@@ -128,51 +128,83 @@ footer a:hover{color:var(--sage)}
 
       <div class="policy-section" id="ai-processing">
         <h2>6. AI Processing &mdash; How It Works</h2>
-        <p>SchoolSphere uses AI to extract event information from emails, documents, and natural language input. This processing is performed by Anthropic, PBC (USA) via AWS Bedrock, operating under a Data Processing Agreement (DPA) with SchoolSphere Ltd. Anthropic is contractually prohibited from using API data to train their models.</p>
-        <p>When we send content to Anthropic for processing, we send the email text (or the pasted message or document text) together with your children's first names and year groups, which the AI needs to put events on the right child. We do not send your account ID, contact details, or payment information. Anthropic processes the text and returns structured event data; Anthropic does not retain the text after processing. SchoolSphere itself keeps the text with your account, as described in the Email and Pasted Text sections above.</p>
-        <p>AI processing is performed server-side (not on your device). All communication between our servers and Anthropic (via AWS Bedrock) is encrypted in transit. Anthropic is used solely for event extraction and calendar assistant features &mdash; it is not used for profiling, advertising, or any decision-making about you.</p>
+        <p>SchoolSphere uses AI to extract event information from emails, documents, and natural language input. This processing is performed by Amazon Web Services, using Amazon Bedrock in AWS's UK and EU regions, with Anthropic's Claude models accessed through Bedrock. We never send your data to Anthropic directly. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html</a>).</p>
+        <p>When we send content for processing, we send the email text (or the pasted message or document text) together with your children's first names and year groups, which the AI needs to put events on the right child. We do not send your account ID, contact details, or payment information. The service returns structured event data, which SchoolSphere keeps with your account as described in the Email and Pasted Text sections above.</p>
+        <p>AI processing is performed server-side (not on your device). All communication between our servers and AWS Bedrock is encrypted in transit. This AI processing is used solely for event extraction and calendar assistant features &mdash; it is not used for profiling, advertising, or any decision-making about you.</p>
       </div>
 
       <div class="policy-section" id="childrens-data">
         <h2>7. Children's Data &mdash; Special Protections</h2>
         <p>SchoolSphere is for parents and carers aged 18 and over. Children do not have accounts and cannot use the app directly. We apply the following protections in line with the ICO's Children's Code (Age Appropriate Design Code):</p>
-        <p>Age verification is carried out at sign-in: users sign in via Google OAuth and by completing registration they self-declare they are 18 or over. We do not knowingly allow users under 18 to create accounts. Before enabling Gmail, Outlook or iCloud Mail integration or AI features that process family content, users are shown a clear consent screen explaining what data is accessed and how it is used.</p>
+        <p>Age verification is carried out at sign-in: users sign in via Clerk (using Apple, Google, Microsoft, or a one-time email code) and by completing registration they self-declare they are 18 or over. We do not knowingly allow users under 18 to create accounts. Before enabling Gmail, Outlook or iCloud Mail integration or AI features that process family content, users are shown a clear consent screen explaining what data is accessed and how it is used.</p>
         <p>Children's data is stored only as entered by the parent or carer. Children cannot access or modify their own records. We do not use children's information for advertising or profiling. Household members only see children's data for children the account holder has explicitly shared. When an account is deleted, all children's data is permanently and immediately deleted. We collect only the minimum information necessary (first name or nickname and year group).</p>
         <p>We do not knowingly process personal data relating to children under 13 without verifiable parental consent. If you believe this has occurred, please contact <a href="mailto:privacy@schoolsphere.app">privacy@schoolsphere.app</a> immediately.</p>
       </div>
 
       <div class="policy-section" id="sharing">
         <h2>8. Who We Share Data With</h2>
-        <p>We do not sell your data. We share data only with the following trusted service providers acting as data processors under written DPAs:</p>
+        <p>We do not sell your data. We share data only with the third parties below, each acting as a data processor.</p>
         <div class="processor-block">
-          <h3>Railway &mdash; platform hosting and database</h3>
-          <p>Our application backend and database are hosted on Railway. Your account data, events, and calendar entries are stored in a managed MySQL database, held within the EU/UK region. Railway operates under a Data Processing Agreement with SchoolSphere Ltd.</p>
+          <h3>Railway &mdash; hosting and database</h3>
+          <p>Our backend and database run on Railway, which stores your account data, children's profiles, events, and calendar entries in a managed MySQL database. Railway hosts our database and backend in EU West (Amsterdam, Netherlands).</p>
         </div>
         <div class="processor-block">
-          <h3>Amazon Web Services (AWS) &mdash; temporary file storage</h3>
-          <p>Uploaded files (PDFs, photos) are temporarily stored in AWS S3 (EU region) for the duration of AI processing only, then immediately deleted. AWS operates under SCCs and a DPA.</p>
+          <h3>Cloudflare &mdash; email routing and network proxy</h3>
+          <p>Cloudflare handles two things for us. First, inbound email: school emails you forward to your SchoolSphere address are received first by Cloudflare Email Routing, which passes the message to SchoolSphere for processing. Second, network proxy: schoolsphere.app is served through Cloudflare, so traffic between the app and our backend passes through Cloudflare's network.</p>
         </div>
         <div class="processor-block">
-          <h3>Google LLC &mdash; Gmail API</h3>
-          <p>If you connect Gmail, we use the Google Gmail API (read-only scope) to fetch emails. Google acts as a data processor for this access. You can revoke access at any time via your Google account settings or within SchoolSphere Settings. Google operates under SCCs.</p>
+          <h3>Clerk &mdash; sign-in and authentication</h3>
+          <p>Sign-in is handled by Clerk (using Apple, Google, Microsoft, or a one-time email code). Clerk receives your name, email address, unique user ID, and sign-in method. Clerk is based in the USA and is certified under the EU-US Data Privacy Framework, including the UK Extension.</p>
         </div>
         <div class="processor-block">
-          <h3>Microsoft Corporation &mdash; Outlook / Microsoft 365 API</h3>
-          <p>If you connect Outlook, we use the Microsoft Graph API (read-only scope) to fetch emails. Microsoft acts as a data processor for this access. You can revoke access at any time via your Microsoft account settings or within SchoolSphere Settings. Microsoft operates under SCCs.</p>
+          <h3>Amazon Web Services (Amazon Bedrock) &mdash; AI event extraction and calendar assistant</h3>
+          <p>Text content (email bodies, pasted text, document text) is processed by Amazon Web Services using Amazon Bedrock, in AWS's UK and EU regions, with Anthropic's Claude models, for event extraction and natural language processing &mdash; together with your children's first names and year groups so that events are assigned to the right child. We do not include your account ID, contact details, or payment information. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html</a>).</p>
         </div>
         <div class="processor-block">
-          <h3>Stripe Inc &mdash; payment processing</h3>
-          <p>Subscription payments are processed by Stripe. We share only the minimum information required (email, name, subscription plan). Stripe is PCI-DSS compliant and operates under a DPA and SCCs.</p>
+          <h3>Amazon Web Services (S3) &mdash; temporary file storage</h3>
+          <p>Uploaded files (PDFs, photos) are temporarily stored in AWS S3 (eu-west-2, London) for the duration of AI processing only, then immediately deleted.</p>
         </div>
         <div class="processor-block">
-          <h3>Anthropic, PBC (USA) via AWS Bedrock &mdash; AI event extraction and calendar assistant</h3>
-          <p>Text content (email bodies, pasted text, document text) is sent to Anthropic (via AWS Bedrock) for event extraction and natural language processing, together with your children's first names and year groups so that events are assigned to the right child. We do not include your account ID, contact details, or payment information. Anthropic is contractually prohibited from training on API user data and operates under a DPA.</p>
+          <h3>Google LLC &mdash; Gmail and Google Calendar</h3>
+          <p>If you connect Gmail, we use the Gmail API (read-only) to fetch school emails. If you connect Google Calendar, we write your events (titles, dates, and the child they relate to) to your calendar. You can revoke access at any time in your Google account or in SchoolSphere Settings.</p>
+        </div>
+        <div class="processor-block">
+          <h3>Microsoft Corporation &mdash; Outlook and Outlook Calendar</h3>
+          <p>If you connect Outlook, we use the Microsoft Graph API (read-only) to fetch school emails, and write your events to your Outlook calendar. You can revoke access at any time in your Microsoft account or in SchoolSphere Settings.</p>
+        </div>
+        <div class="processor-block">
+          <h3>360dialog and Meta Platforms &mdash; WhatsApp</h3>
+          <p>If you use SchoolSphere on WhatsApp, your messages, voice notes, and any images or PDFs you send &mdash; and the replies and digests we send you &mdash; pass through the WhatsApp Business API, provided by 360dialog and operated by Meta Platforms. 360dialog GmbH is based in Germany.</p>
+        </div>
+        <div class="processor-block">
+          <h3>Resend &mdash; outbound email</h3>
+          <p>Emails we send you (digests, notifications, and feedback replies) are delivered through Resend, which receives the recipient email address and the message content. Resend processes this under its Data Processing Addendum, with the EU Standard Contractual Clauses as amended by the UK Addendum.</p>
         </div>
         <div class="processor-block">
           <h3>OpenAI OpCo, LLC (USA) &mdash; voice transcription</h3>
           <p>If you use the voice assistant, or send a voice note to SchoolSphere on WhatsApp, the audio is sent to OpenAI's Whisper API (in the USA) to transcribe it into text. The resulting text is then processed in the same way as pasted text. We do not send audio to OpenAI for any other purpose. OpenAI processes this under OpenAI's Data Processing Addendum, with the Standard Contractual Clauses as amended by the UK Addendum.</p>
         </div>
-        <p>Where data is transferred outside the UK, we ensure Standard Contractual Clauses (SCCs) or equivalent safeguards are in place as required by the ICO's international transfer guidance.</p>
+        <div class="processor-block">
+          <h3>Google Maps Platform (Places) &mdash; location lookup</h3>
+          <p>When an event has a location, we may send the location text to Google's Places API to find its address and map coordinates.</p>
+        </div>
+        <div class="processor-block">
+          <h3>postcodes.io &mdash; UK postcode lookup</h3>
+          <p>To show local weather for an event, we may send a UK postcode to postcodes.io to convert it to approximate coordinates.</p>
+        </div>
+        <div class="processor-block">
+          <h3>Open-Meteo &mdash; weather and place lookup</h3>
+          <p>To show weather and to look up place names, we may send location coordinates or a place name to Open-Meteo.</p>
+        </div>
+        <div class="processor-block">
+          <h3>Apple, Google and Expo &mdash; push notification delivery</h3>
+          <p>To deliver reminders and alerts, your device push token and the notification text are sent to the relevant push service &mdash; Apple (APNs), Google (FCM), and, in the mobile app, Expo.</p>
+        </div>
+        <div class="processor-block">
+          <h3>Stripe Inc &mdash; payment processing</h3>
+          <p>Subscription payments are processed by Stripe. We share only the minimum required (email, name, subscription plan); card details are handled by Stripe and never reach us.</p>
+        </div>
+        <p>Some of these providers process data outside the UK; where they do, we rely on the UK's adequacy arrangements or the provider's standard contractual clauses.</p>
       </div>
 
       <div class="policy-section" id="retention">
