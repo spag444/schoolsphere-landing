@@ -43,7 +43,7 @@ footer a:hover{color:var(--sage)}
 </style></head><body><nav><div class="wrap nav-inner"><a href="/" class="brand"><svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#1C2A33"/><stop offset="100%" stop-color="#0C1117"/></radialGradient></defs><rect width="40" height="40" rx="11" fill="url(#g)"/><circle cx="20.00" cy="6.50" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="8.31" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="33.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="20.00" cy="33.50" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="6.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="8.31" r="1.15" fill="#6BAF92"/><text x="20" y="20.5" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="19" fill="#F2F0EB" text-anchor="middle" dominant-baseline="central">S</text></svg><span class="wordmark">School<span class="sp">Sphere</span></span></a><div class="nav-links"><a href="/">Home</a><a href="/terms">Terms</a></div></div></nav>
   <div class="hero-bar">
     <h1>Privacy Policy</h1>
-    <p>Version 2.3 &middot; Last updated 4 October 2026</p>
+    <p>Version 2.4 &middot; Last updated 5 October 2026</p>
   </div>
 
   <div class="content-wrap">
@@ -129,7 +129,7 @@ footer a:hover{color:var(--sage)}
 
       <div class="policy-section" id="ai-processing">
         <h2>6. AI Processing &mdash; How It Works</h2>
-        <p>SchoolSphere uses AI to extract event information from emails, documents, and natural language input. This processing is performed by Amazon Web Services, using Amazon Bedrock in AWS's UK and EU regions, with Anthropic's Claude models accessed through Bedrock. We never send your data to Anthropic directly. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">AWS Bedrock data protection</a>).</p>
+        <p>SchoolSphere uses AI to extract event information from emails, documents, and natural language input. This processing is performed by Amazon Web Services, using Amazon Bedrock in London, with Anthropic's Claude models accessed through Bedrock. We never send your data to Anthropic directly. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">AWS Bedrock data protection</a>).</p>
         <p>When we use AI, we send the text itself (the email, message or document) together with your children's first names, year groups and internal record numbers, so events land on the right child. We do not add your account ID, your contact details or any payment information. If the message you forward contains someone's phone number or address, that text is sent as part of the message. The service returns structured event data, which SchoolSphere keeps with your account as described in the Email and Pasted Text sections above.</p>
         <p>AI processing is performed server-side (not on your device). All communication between our servers and AWS Bedrock is encrypted in transit. This AI processing is used solely for event extraction and calendar assistant features &mdash; it is not used for profiling, advertising, or any decision-making about you.</p>
       </div>
@@ -154,12 +154,16 @@ footer a:hover{color:var(--sage)}
           <p>Cloudflare handles two things for us. First, inbound email: school emails you forward to your SchoolSphere address are received first by Cloudflare Email Routing, which passes the message to SchoolSphere for processing. Second, network proxy: schoolsphere.app is served through Cloudflare, so traffic between the app and our backend passes through Cloudflare's network.</p>
         </div>
         <div class="processor-block">
+          <h3>Netlify &mdash; website hosting</h3>
+          <p>Our public website (schoolsphere.co.uk) is hosted by Netlify, which, like any web host, processes visitors' IP addresses in order to serve the pages.</p>
+        </div>
+        <div class="processor-block">
           <h3>Clerk &mdash; sign-in and authentication</h3>
           <p>Sign-in is handled by Clerk (using Apple, Google, Microsoft, an email address and password, or a one-time email code). Clerk receives your name, email address, unique user ID, sign-in method, and &mdash; if you set one &mdash; your password, which Clerk stores securely; SchoolSphere never receives or stores it. Clerk is based in the USA and is certified under the EU-US Data Privacy Framework, including the UK Extension.</p>
         </div>
         <div class="processor-block">
           <h3>Amazon Web Services (Amazon Bedrock) &mdash; AI event extraction and calendar assistant</h3>
-          <p>Text content (email bodies, pasted text, document text) is processed by Amazon Web Services using Amazon Bedrock, in AWS's UK and EU regions, with Anthropic's Claude models, for event extraction and natural language processing &mdash; together with your children's first names, year groups and internal record numbers, so that events are assigned to the right child. We do not add your account ID, your contact details or any payment information; if a message you forward contains someone's phone number or address, that text is sent as part of the message. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">AWS Bedrock data protection</a>).</p>
+          <p>Text content (email bodies, pasted text, document text) is processed by Amazon Web Services using Amazon Bedrock, in London, with Anthropic's Claude models, for event extraction and natural language processing &mdash; together with your children's first names, year groups and internal record numbers, so that events are assigned to the right child. We do not add your account ID, your contact details or any payment information; if a message you forward contains someone's phone number or address, that text is sent as part of the message. According to AWS's Bedrock documentation, Bedrock does not store or log prompts and completions, does not use them to train models, does not share them with third parties, and model providers such as Anthropic have no access to them (see <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/data-protection.html">AWS Bedrock data protection</a>).</p>
         </div>
         <div class="processor-block">
           <h3>Amazon Web Services (S3) &mdash; temporary file storage</h3>
@@ -210,7 +214,7 @@ footer a:hover{color:var(--sage)}
 
       <div class="policy-section" id="retention">
         <h2>9. How Long We Keep Your Data</h2>
-        <p>Account and profile data is retained until you delete your account. Events and calendar entries are retained until you delete them or your account. Email text and pasted text saved with your account (for example, on the event it produced) is retained until you delete the item or your account. In practice that means we keep: the snippet of source text stored on an event, the sender address and subject line of a school email we processed, and the summary and key points we generated from it. There is no automatic expiry &mdash; these are kept until you delete the item or your account. Uploaded files are deleted as soon as processing finishes (typically within seconds). Gmail and Outlook OAuth tokens are retained until you disconnect them. Your iCloud Mail app-specific password is stored encrypted until you disconnect iCloud Mail. Push notification tokens are retained until you revoke permission. Stripe billing records are retained for 7 years in compliance with UK financial regulations. Server logs are retained for 90 days. Consent records are retained for 7 years.</p>
+        <p>Account and profile data is retained until you delete your account. Events and calendar entries are retained until you delete them or your account. Email text and pasted text saved with your account (for example, on the event it produced) is retained until you delete the item or your account. In practice that means we keep: the snippet of source text stored on an event, the sender address and subject line of a school email we processed, and the summary and key points we generated from a school update. There is no automatic expiry. Deleting an event removes the snippet stored on it. The sender and subject of a processed email, and the summaries and key points of school updates, are kept until you delete your account. Uploaded files are deleted as soon as processing finishes (typically within seconds). Gmail and Outlook OAuth tokens are retained until you disconnect them. Your iCloud Mail app-specific password is stored encrypted until you disconnect iCloud Mail. Push notification tokens are retained until you revoke permission. Billing and accounting records are kept for 6 years from the end of the financial year they relate to, as UK law requires for company accounting records. Server logs are retained for 90 days. Consent records are retained for 7 years.</p>
       </div>
 
       <div class="policy-section" id="your-rights">
@@ -271,7 +275,7 @@ footer a:hover{color:var(--sage)}
           <li>Email: <a href="mailto:privacy@schoolsphere.app">privacy@schoolsphere.app</a></li>
           <li>ICO: <a href="https://ico.org.uk">ico.org.uk</a> &middot; 0303 123 1113</li>
         </ul>
-        <p style="margin-top:18px;font-size:.88rem;opacity:.75">Version 2.3 &middot; Last updated 4 October 2026 &middot; SchoolSphere Ltd, England and Wales</p>
+        <p style="margin-top:18px;font-size:.88rem;opacity:.75">Version 2.4 &middot; Last updated 5 October 2026 &middot; SchoolSphere Ltd, England and Wales</p>
       </div>
 
     </div>
