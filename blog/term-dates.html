@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="apple-itunes-app" content="app-id=6761808005">
 <title>The term dates treasure hunt — SchoolSphere Blog</title>
 <meta name="description" content="Every UK school publishes its term dates somewhere. No two hide them in the same place. Why finding out when half term starts is harder than it should be — and how to never hunt again." />
 <link rel="canonical" href="https://www.schoolsphere.co.uk/blog/term-dates" />
@@ -142,6 +143,16 @@
     .f-mid svg { transform: rotate(90deg); }
     .article { padding: 48px 24px 56px; }
   }
+
+  /* Official store badges (unmodified Apple / Google artwork). Google's PNG carries 41px of clear space
+     per side at 646×250; at 74px tall its artwork is 50px, the Apple badge's height, so the negative
+     margin lines the two up. */
+  .store-badges { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  .store-badge { display: inline-block; line-height: 0; border-radius: 9px; transition: transform .2s; }
+  .store-badge:hover { transform: translateY(-2px); }
+  .store-badge img { height: 50px; width: auto; display: block; }
+  .store-badge-play img { height: 74px; margin: -12px; }
+  .center .store-badges, .cta .store-badges { justify-content: center; }
 </style>
 </head>
 <body>
@@ -156,7 +167,7 @@
       <a href="/#features">Features</a>
       <a href="/#pricing">Pricing</a>
       <a href="/blog/">Blog</a>
-      <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Join the beta</a>
+      <a class="btn btn-sage" href="/#get-started">Get the app</a>
     </div>
   </div>
 </nav>
@@ -238,11 +249,14 @@
 
 <section class="cta dotted">
   <div class="wrap">
-    <span class="eyebrow">Now in early access</span>
+    <span class="eyebrow">Now on the App Store &amp; Google Play</span>
     <h2 class="sec-title">Stop hunting for <em>term dates</em></h2>
-    <p>SchoolSphere finds your school's term dates and INSET days for you — and reads the school emails while it's at it. Free while we're in beta on iOS.</p>
-    <a class="btn btn-sage" href="https://testflight.apple.com/join/a1uAmfpK">Download on TestFlight</a>
-    <div class="cta-note">Free during beta · iPhone today · Android coming soon</div>
+    <p>SchoolSphere finds your school's term dates and INSET days for you — and reads the school emails while it's at it. Free to download on iPhone and Android.</p>
+    <div class="store-badges">
+        <a class="store-badge" href="https://apps.apple.com/gb/app/schoolsphere-parent-planner/id6761808005"><img src="/badges/app-store.svg" alt="Download on the App Store" width="150" height="50"></a>
+        <a class="store-badge store-badge-play" href="https://play.google.com/store/apps/details?id=app.schoolsphere.android"><img src="/badges/google-play.png" alt="Get it on Google Play" width="192" height="74"></a>
+      </div>
+    <div class="cta-note">Free to download · iPhone &amp; Android</div>
   </div>
 </section>
 
