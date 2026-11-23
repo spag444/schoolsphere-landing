@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="apple-itunes-app" content="app-id=6761808005">
 <title>SchoolSphere — School life, organised by itself</title>
-<meta name="description" content="SchoolSphere turns school emails, newsletters, paper letters and WhatsApp messages into calendar events — automatically. UK GDPR compliant. Per AWS, Bedrock doesn't store prompts or train on them; your email text stays in your household account and is never shared." />
+<meta name="description" content="The family calendar that knows your child's school and reads what school sends you, only from the senders you choose, so each child's week builds itself. Free to download on the App Store and Google Play." />
 <meta name="google-site-verification" content="MF048nAHaSbs3ETIb4KrHMKVKkBi4pHkShtfXcjgfCk" />
 <meta name="facebook-domain-verification" content="zgzrrejv89o9xzgwffjsijrd8difgx" />
 <meta property="og:title" content="SchoolSphere — School life, organised by itself" />
@@ -96,7 +96,7 @@
   .nav-links { display: flex; align-items: center; gap: 30px; }
   .nav-links a { color: rgba(242,240,235,0.72); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
   .nav-links a:hover { color: var(--sage); }
-  .nav .btn-sage { padding: 10px 20px; font-size: 0.875rem; }
+  nav .nav-links a.btn-sage, nav .nav-links a.btn-sage:hover { padding: 10px 20px; font-size: 0.875rem; color: var(--navy-deep); }
   .nav-toggle { display: none; background: none; border: none; color: var(--cream); font-size: 1.5rem; cursor: pointer; }
 
   /* HERO */
@@ -403,7 +403,7 @@
     <div>
       <div class="hero-badge"><i></i> Now on the App Store &amp; Google Play</div>
       <h1>School life,<br><em>organised by itself.</em></h1>
-      <p class="hero-sub">SchoolSphere turns school emails, newsletters, paper letters and WhatsApp messages into calendar events — automatically. Never miss a trip, forget the PE kit, or double-book a party again.</p>
+      <p class="hero-sub">SchoolSphere turns school emails (only from the senders you choose), newsletters, paper letters and WhatsApp messages into calendar events — automatically. Never miss a trip, forget the PE kit, or double-book a party again.</p>
       <div class="store-badges">
         <a class="store-badge" href="https://apps.apple.com/gb/app/schoolsphere-parent-planner/id6761808005"><img src="/badges/app-store.svg" alt="Download on the App Store" width="150" height="50"></a>
         <a class="store-badge store-badge-play" href="https://play.google.com/store/apps/details?id=app.schoolsphere.android"><img src="/badges/google-play.png" alt="Get it on Google Play" width="192" height="74"></a>
@@ -412,8 +412,8 @@
         <a class="btn btn-ghost" href="#see-it">See it in action</a>
       </div>
       <div class="hero-trust">
-        <span>Connect Gmail or Outlook once — every email from your trusted senders synced after</span>
-        <span>UK GDPR compliant — read, extract, delete</span>
+        <span>Connect Gmail, Outlook or iCloud once — it reads school email only from the senders you choose</span>
+        <span>UK GDPR compliant — AI processing in the UK</span>
         <span>All events. All clubs. One sphere.</span>
       </div>
     </div>
@@ -428,7 +428,6 @@
     <span class="band-chip"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg> School email</span>
     <span class="band-chip"><svg viewBox="0 0 24 24"><path d="M6 2h8l4 4v16H6z"/><path d="M14 2v4h4"/></svg> Paper letter</span>
     <span class="band-chip"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L4 20l1.1-4.1A8.5 8.5 0 1 1 21 11.5z"/></svg> WhatsApp message</span>
-    <span class="band-chip"><svg viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg> A voice note</span>
     <span class="band-arrow">→</span>
     <span class="band-out"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 9h18M8 3v4M16 3v4"/></svg> A calendar event, in seconds</span>
   </div>
@@ -439,7 +438,7 @@
     <div class="sec-head center reveal">
       <span class="eyebrow">See it work</span>
       <h2 class="sec-title">One school email in. <em>A sorted week out.</em></h2>
-      <p class="sec-sub">This is the part that feels like magic. Connect your inbox once and SchoolSphere reads every school email as it arrives — handing back the date, the kit list, the payment and the deadline, already organised for the right child.</p>
+      <p class="sec-sub">This is the part that feels like magic. Connect your inbox once and SchoolSphere reads each school email as it arrives, only from the senders you choose — handing back the date, the kit list, the payment and the deadline, already organised for the right child.</p>
     </div>
     <div class="reveal" style="max-width:1040px;margin:0 auto;">
       <iframe src="email-to-calendar.html" title="Watch a school email become a calendar event" loading="lazy" style="width:100%;aspect-ratio:1000/666;border:0;display:block;"></iframe>
@@ -456,16 +455,16 @@
       <p class="sec-sub">From sports day to birthday parties, school trips to club schedules — SchoolSphere keeps your whole family's school life in sync.</p>
     </div>
     <div class="feat-grid">
-      <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><h3>Connect once, synced forever</h3><p>Connect Gmail, Outlook or iCloud a single time and every school email syncs automatically from then on — as the school sends them. On other providers, forwarding does the same job.</p></div>
+      <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div><h3>Connect once, synced forever</h3><p>Connect Gmail, Outlook or iCloud a single time and school emails sync automatically from then on, only from the senders you choose — as the school sends them. On other providers, forwarding does the same job.</p></div>
       <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M13 2 7 13h4l-1 9 8-12h-5z"/></svg></div><h3>Smart Add</h3><p>Paste any school email, message or newsletter and the AI instantly pulls out the event, date, time and what to bring — ready in one tap.</p></div>
       <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M4 8V6a2 2 0 0 1 2-2h2M16 4h2a2 2 0 0 1 2 2v2M20 16v2a2 2 0 0 1-2 2h-2M8 20H6a2 2 0 0 1-2-2v-2M7 12h10"/></svg></div><h3>Scan a letter</h3><p>Photograph any paper letter from the book bag. SchoolSphere reads it, extracts the dates and requirements, and files them for you.</p></div>
       <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.4 7.5L4 20l1.1-4.1A8.5 8.5 0 1 1 21 11.5z"/></svg></div><h3>WhatsApp assistant</h3><p>Message your SchoolSphere number and it adds events to your calendar — invites, appointments, trips. It can answer questions about your school too.</p></div>
-      <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M10 21v-5h4v5"/></svg></div><h3>School Gate</h3><p>Search your school and SchoolSphere imports its term dates, clubs and newsletters automatically. No setup, no waiting on the school.</p></div>
+      <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-4 7 4v13M10 21v-5h4v5"/></svg></div><h3>School Gate</h3><p>Search for your school and SchoolSphere adds its term dates and holidays automatically, with INSET days when the school publishes them, and for some schools its events too. Automatic school lookup covers schools in England.</p></div>
       <div class="feat reveal"><div class="feat-ic"><svg viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h4"/></svg></div><h3>AI weekly briefing</h3><p>One tap gives you a plain-English summary of the week — what's on, who needs what, and the reminders that actually matter.</p></div>
     </div>
     <div class="more reveal">
       <div class="more-title serif">And the rest of family life, handled</div>
-      <div class="more-item">Voice input at the school gate</div>
+      <div class="more-item">Follow class &amp; PTA pages</div>
       <div class="more-item">What-to-bring checklists</div>
       <div class="more-item">Birthday party planner &amp; RSVPs</div>
       <div class="more-item">Clubs &amp; activities that repeat</div>
@@ -475,7 +474,7 @@
       <div class="more-item">Calendar export &amp; sync</div>
       <div class="more-item">Smart reminders, per event</div>
       <div class="more-item">Family sharing for partners &amp; carers</div>
-      <div class="more-item">Holiday club booking</div>
+      <div class="more-item">Keep track of holiday clubs</div>
       <div class="more-item">Search across everything</div>
     </div>
   </div>
@@ -513,7 +512,7 @@
     <div class="steps">
       <div class="step reveal"><h4>Connect your inbox</h4><p>Connect Gmail or Outlook in one tap, or iCloud with an app-specific password. On Yahoo or another provider, set up forwarding instead — a one-time step.</p></div>
       <div class="step reveal"><h4>Schools email as normal</h4><p>Newsletters, trip letters and reminders arrive exactly as they do now — you don't change a thing.</p></div>
-      <div class="step reveal"><h4>AI reads &amp; extracts</h4><p>It pulls out the date, time, requirements and which child the event is for — then deletes the email.</p></div>
+      <div class="step reveal"><h4>AI reads &amp; extracts</h4><p>Reading only the senders you choose, it pulls out the date, time, requirements and which child the event is for.</p></div>
       <div class="step reveal"><h4>Events appear</h4><p>Events land in your calendar with reminders set, and you get a notification. Done.</p></div>
     </div>
   </div>
@@ -529,7 +528,7 @@
         <span class="eyebrow">From the founder</span>
         <p class="founder-lead">Like a lot of parents, I was drowning in it.</p>
         <p>The school sent things three different ways — an email here, a paper letter crumpled in the bottom of the book bag, the key date buried somewhere in the class WhatsApp chat — and somehow I was still the one who forgot the PE kit, missed the trip deadline, or double-booked a party.</p>
-        <p>I built SchoolSphere because I wanted one place that just <em>knew</em>. Connect your inbox once, snap a letter, and it sorts the rest — the right date, for the right child, with the reminder that actually matters.</p>
+        <p>I built SchoolSphere because I wanted one place that just <em>knew</em>. Connect your inbox once and it reads school email only from the senders you choose; snap a letter, and it sorts the rest — the right date, for the right child, with the reminder that actually matters.</p>
         <p>It's early, and we're building it alongside parents like you. If something's missing or not quite right, tell me — I read everything.</p>
         <div class="founder-sign">
           <span class="founder-name">Paul Spiteri</span>
@@ -545,121 +544,27 @@
     <div class="sec-head reveal">
       <span class="eyebrow">Our privacy promise</span>
       <h2 class="sec-title">We read for the dates, then <em>delete the upload</em></h2>
-      <p class="sec-sub">Your emails are private. Our AI reads them only to extract dates, tasks and details — and according to AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. The text is saved with your account so events stay complete and can be re-checked, visible only to your household and never shared or used for anything else.</p>
+      <p class="sec-sub">Your emails are private. Our AI reads them only from the senders you choose, and only to extract dates, tasks and details — and according to AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. The email text is saved with your account so you can read the original with each event, until the event has passed (never longer than 30 days), visible only to your household and never shared or used for anything else.</p>
     </div>
     <div class="priv-grid">
-      <div class="priv reveal"><h4>Nothing is kept by the AI that reads your email</h4><p>Our AI reads your emails only to extract the event details. According to AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. SchoolSphere saves the text with your account so events show full details and can be re-checked — visible only to your household, never shared.</p></div>
+      <div class="priv reveal"><h4>Nothing is kept by the AI that reads your email</h4><p>Our AI reads your emails only from the senders you choose, and only to extract the event details. According to AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. SchoolSphere saves the email text with your account so you can read the original with each event, until the event has passed (never longer than 30 days) — visible only to your household, never shared.</p></div>
       <div class="priv reveal"><h4>Scans deleted after reading</h4><p>Photos and PDFs you upload for a scan are deleted once the scan has read them, usually within seconds.</p></div>
       <div class="priv reveal"><h4>UK GDPR compliant</h4><p>Operated under UK law. You can access, export and delete all your data at any time from within the app.</p></div>
-      <div class="priv reveal"><h4>Zero ads. Zero selling.</h4><p>We never use your data for advertising or profiling, and we never sell it. The subscription is the business model.</p></div>
+      <div class="priv reveal"><h4>Zero ads. Zero selling.</h4><p>We never use your data for advertising or profiling, and we never sell it.</p></div>
     </div>
   </div>
 </section>
 
 <section class="sec sec-cream" id="pricing">
   <div class="wrap">
-    <div class="sec-head center reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2 class="sec-title">Free to organise. <em>Premium</em> to automate.</h2>
-      <p class="sec-sub">Free forever — the full calendar, your children, your family and your term dates. Premium opens the whole app: the AI that reads your school emails, the assistant, and the briefings that hand you the week.</p>
-    </div>
-
-    <div class="tier-grid">
-
-      <!-- FREE -->
-      <div class="tier reveal">
-        <div class="tier-head">
-          <div class="tier-name">Free</div>
-          <div class="tier-tag">The full family calendar, organised by you</div>
-          <div class="tier-price"><b>£0</b><span>forever</span></div>
-          <div class="tier-alt">No card required. No trial clock.</div>
-        </div>
-
-        <span class="tier-glabel first">Your calendar</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span>Calendar in <b>month, week &amp; side-by-side</b> views</span></li>
-          <li><span class="tk y">✓</span><span><b>Add multiple children</b>, each in their own colour</span></li>
-          <li><span class="tk y">✓</span><span><b>Add family &amp; carers</b>, and choose which children each can see</span></li>
-          <li><span class="tk y">✓</span><span>Add events, reminders &amp; to-dos <b>by hand</b></span></li>
-          <li><span class="tk y">✓</span><span>Events lasting several days, and <b>“Parents” events</b> for adults-only nights</span></li>
-          <li><span class="tk y">✓</span><span>Needs Attention, Saved reminders &amp; a Get started guide</span></li>
-          <li><span class="tk y">✓</span><span>Notifications &amp; reminders, at times you choose</span></li>
-          <li><span class="tk y">✓</span><span><b>Sync with Google, Outlook &amp; Apple Calendar</b></span></li>
-          <li><span class="tk y">✓</span><span>Light &amp; dark mode</span></li>
-        </ul>
-
-        <span class="tier-glabel">Class &amp; PTA pages</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span><b>Follow your class &amp; PTA pages</b></span></li>
-          <li><span class="tk y">✓</span><span>Save their dates &amp; reminders in one tap, and get notified about new ones</span></li>
-          <li><span class="tk y">✓</span><span>Changes &amp; cancellations update your calendar automatically</span></li>
-          <li><span class="tk y">✓</span><span>Ask to join private class pages</span></li>
-        </ul>
-
-        <span class="tier-glabel">School life</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span><b>School lunches</b> — paste your SchoolGrid orders, or add lunches by hand</span></li>
-          <li><span class="tk y">✓</span><span>UK bank holidays, added automatically</span></li>
-          <li><span class="tk y">✓</span><span><b>Term dates &amp; holidays</b> for your school, added automatically</span></li>
-          <li><span class="tk p">±</span><span>Clubs, childminder, parties, medical, play dates, sports &amp; fixtures — <span class="sub">added by hand</span></span></li>
-          <li><span class="tk y">✓</span><span>Weekly digest</span></li>
-        </ul>
-
-        <div class="tier-cta">
-          <a class="btn btn-ink" href="#get-started" style="width:100%">Get started free</a>
-        </div>
+    <div class="sec-head center reveal" style="margin-bottom:0">
+      <span class="eyebrow">Price</span>
+      <h2 class="sec-title">Free to download on the <em>App Store and Google Play</em></h2>
+      <p class="sec-sub">Every feature, Premium included, is currently open to everyone.</p>
+      <div class="store-badges" style="margin-top:26px">
+        <a class="store-badge" href="https://apps.apple.com/gb/app/schoolsphere-parent-planner/id6761808005"><img src="/badges/app-store.svg" alt="Download on the App Store" width="150" height="50"></a>
+        <a class="store-badge store-badge-play" href="https://play.google.com/store/apps/details?id=app.schoolsphere.android"><img src="/badges/google-play.png" alt="Get it on Google Play" width="192" height="74"></a>
       </div>
-
-      <!-- PREMIUM -->
-      <div class="tier pro reveal">
-        <div class="tier-head dotted">
-          <span class="tier-flag">Whole app</span>
-          <div class="tier-name">Premium</div>
-          <div class="tier-tag">School life, organised by itself</div>
-          <div class="tier-price"><b>£5.99</b><span>/ month</span></div>
-          <div class="tier-alt">or <em>£49.99/year</em> — save 30% (about £4.17/month)</div>
-        </div>
-
-        <span class="tier-glabel first">Everything in Free, plus —</span>
-
-        <span class="tier-glabel">Reads it for you</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span><b>Email sync</b> — connect Gmail, Outlook or iCloud once (other inboxes forward), and newsletters &amp; attachments are read too</span></li>
-          <li><span class="tk y">✓</span><span><b>Smart Add</b> — paste text, or add photos, PDFs, posters, scanned letters &amp; voice</span></li>
-          <li><span class="tk y">✓</span><span>Club letters turned into <b>session plans</b>, and <b>kit checklists</b> (what to bring) from letters &amp; emails</span></li>
-          <li><span class="tk y">✓</span><span><b>School lunches</b> from screenshots and any menu format</span></li>
-          <li><span class="tk y">✓</span><span>Term dates from a link or a letter, and school documents read for you</span></li>
-        </ul>
-
-        <span class="tier-glabel">The AI assistant</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span><b>In-app Assistant</b> with memory, weather-aware</span></li>
-          <li><span class="tk y">✓</span><span><b>WhatsApp Assistant</b> — ask, add events, forward group messages, photos &amp; voice notes</span></li>
-          <li><span class="tk y">✓</span><span><b>School knowledge base</b> — answers drawn from your school</span></li>
-        </ul>
-
-        <span class="tier-glabel">Briefings</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span><b>AI briefings — Today, Tomorrow &amp; This Week</b>, plus Catch-up</span></li>
-          <li><span class="tk y">✓</span><span>Morning &amp; evening briefings written by AI</span></li>
-        </ul>
-
-        <span class="tier-glabel">Tracking &amp; school, unlocked</span>
-        <ul class="tier-feats">
-          <li><span class="tk y">✓</span><span>Clubs, childminder, parties, medical, play dates, sports &amp; fixtures — <b>scan or speak them in</b></span></li>
-          <li><span class="tk y">✓</span><span><b>School Gate</b> — add <b>multiple schools</b> for children at different schools</span></li>
-        </ul>
-
-        <div class="tier-cta">
-          <a class="btn btn-sage" href="#get-started" style="width:100%">Get started free</a>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="tier-legend reveal">
-      <span><span class="tk y">✓</span> Included</span>
-      <span><span class="tk p">±</span> Limited on Free</span>
     </div>
   </div>
 </section>
@@ -668,12 +573,12 @@
   <div class="wrap">
     <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2 class="sec-title">Questions parents ask first</h2></div>
     <div class="faq-list">
-      <details class="faq reveal"><summary>Does it read all my emails?</summary><p>No. If you connect Gmail or Outlook, SchoolSphere only reads emails from senders you've added to your trusted list. It never touches personal or unrelated emails.</p></details>
-      <details class="faq reveal"><summary>Is my data safe?</summary><p>Your emails are read only to extract dates and details — per AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. The text is saved to your household account so events stay complete, and it's never shared or used for anything else. Documents uploaded for a scan are deleted once the scan has read them. We're UK GDPR compliant.</p></details>
+      <details class="faq reveal"><summary>Does it read all my emails?</summary><p>No. Whether you connect Gmail, Outlook or iCloud or forward your email, SchoolSphere reads only from the senders you choose. It never touches personal or unrelated emails.</p></details>
+      <details class="faq reveal"><summary>Is my data safe?</summary><p>Your emails are read only from the senders you choose, and only to extract dates and details — per AWS's Bedrock documentation, for the Claude models we use, Bedrock does not store or log prompts and completions and does not use them to train models. The email text is saved with your household account so you can read the original with each event, until the event has passed (never longer than 30 days), and it's never shared or used for anything else. Documents uploaded for a scan are deleted once the scan has read them. We're UK GDPR compliant.</p></details>
       <details class="faq reveal"><summary>Which email providers are supported?</summary><p>Gmail and Outlook connect directly via OAuth, and iCloud connects directly over IMAP with an app-specific password. Other providers — Yahoo, BT, Sky — work through email forwarding.</p></details>
       <details class="faq reveal"><summary>Can my partner or a grandparent use it too?</summary><p>Yes. Family Sharing lets you invite a partner, grandparent or carer. You control whether they have full access or view-only.</p></details>
       <details class="faq reveal"><summary>What if the AI gets a date wrong?</summary><p>Every extracted event is shown to you for review before it's added. You can edit any detail — date, time, title, requirements — before confirming.</p></details>
-      <details class="faq reveal"><summary>What schools does it work with?</summary><p>Any school. SchoolSphere reads whatever you share with it — it isn't tied to a particular school system, so it works the same everywhere.</p></details>
+      <details class="faq reveal"><summary>What schools does it work with?</summary><p>Any school, for everything you share with it: emails (only from the senders you choose), letters, screenshots and links. The automatic school lookup, which adds term dates and holidays for you, covers schools in England.</p></details>
     </div>
   </div>
 </section>
@@ -730,12 +635,12 @@
     <div class="sec-head center reveal" style="margin-bottom:0">
       <span class="eyebrow" style="color:var(--sage)">Download</span>
       <h2 class="sec-title">Ready to <em>tame the school chaos?</em></h2>
-      <p>Download SchoolSphere free on iPhone or Android.</p>
+      <p>For iPhone and Android.</p>
       <div class="store-badges">
         <a class="store-badge" href="https://apps.apple.com/gb/app/schoolsphere-parent-planner/id6761808005"><img src="/badges/app-store.svg" alt="Download on the App Store" width="150" height="50"></a>
         <a class="store-badge store-badge-play" href="https://play.google.com/store/apps/details?id=app.schoolsphere.android"><img src="/badges/google-play.png" alt="Get it on Google Play" width="192" height="74"></a>
       </div>
-      <div class="cta-note">Free to download · iPhone &amp; Android</div>
+      <div class="cta-note">Free to download on the App Store and Google Play</div>
     </div>
   </div>
 </section>
@@ -745,7 +650,7 @@
     <div class="foot-grid">
       <div>
         <a href="#" class="brand"><svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="g" cx="50%" cy="42%" r="65%"><stop offset="0%" stop-color="#1C2A33"/><stop offset="100%" stop-color="#0C1117"/></radialGradient></defs><rect width="40" height="40" rx="11" fill="url(#g)"/><circle cx="20.00" cy="6.50" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="8.31" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="33.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="31.69" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="26.75" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="20.00" cy="33.50" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="31.69" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="26.75" r="1.15" fill="#6BAF92"/><circle cx="6.50" cy="20.00" r="1.15" fill="#6BAF92"/><circle cx="8.31" cy="13.25" r="1.15" fill="#6BAF92"/><circle cx="13.25" cy="8.31" r="1.15" fill="#6BAF92"/><text x="20" y="20.5" font-family="Cormorant Garamond, serif" font-style="italic" font-weight="600" font-size="19" fill="#F2F0EB" text-anchor="middle" dominant-baseline="central">S</text></svg><span class="wordmark">School<span class="sp">Sphere</span></span></a>
-        <p class="foot-tag">The family calendar that reads the school emails for you. Built in the UK.</p>
+        <p class="foot-tag">The family calendar that reads the school emails for you, only from the senders you choose. Built in the UK.</p>
       </div>
       <div class="foot-col">
         <h5>Product</h5>
